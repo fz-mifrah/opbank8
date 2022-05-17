@@ -1,0 +1,25 @@
+{
+  "opbankApp": {
+    "carteBancaire": {
+      "home": {
+        "title": "Carte Bancaires",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Carte Bancaire",
+        "createOrEditLabel": "Create or edit a Carte Bancaire",
+        "notFound": "No Carte Bancaires found"
+      },
+      "created": "A new Carte Bancaire is created with identifier {{ param }}",
+      "updated": "A Carte Bancaire is updated with identifier {{ param }}",
+      "deleted": "A Carte Bancaire is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Carte Bancaire {{ id }}?"
+      },
+      "detail": {
+        "title": "Carte Bancaire"
+      },
+      "id": "ID",
+      "numCarte": "Num Carte",
+      "compte": "Compte"
+    }
+  }
+}

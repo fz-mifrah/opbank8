@@ -1,0 +1,26 @@
+{
+  "opbankApp": {
+    "paimentFacture": {
+      "home": {
+        "title": "Paiment Factures",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Paiment Facture",
+        "createOrEditLabel": "Create or edit a Paiment Facture",
+        "notFound": "No Paiment Factures found"
+      },
+      "created": "A new Paiment Facture is created with identifier {{ param }}",
+      "updated": "A Paiment Facture is updated with identifier {{ param }}",
+      "deleted": "A Paiment Facture is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Paiment Facture {{ id }}?"
+      },
+      "detail": {
+        "title": "Paiment Facture"
+      },
+      "id": "ID",
+      "referance": "Referance",
+      "serviceClass": "Service Class",
+      "operation": "Operation"
+    }
+  }
+}

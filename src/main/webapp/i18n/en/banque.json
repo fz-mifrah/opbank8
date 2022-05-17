@@ -1,0 +1,27 @@
+{
+  "opbankApp": {
+    "banque": {
+      "home": {
+        "title": "Banques",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Banque",
+        "createOrEditLabel": "Create or edit a Banque",
+        "notFound": "No Banques found"
+      },
+      "created": "A new Banque is created with identifier {{ param }}",
+      "updated": "A Banque is updated with identifier {{ param }}",
+      "deleted": "A Banque is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Banque {{ id }}?"
+      },
+      "detail": {
+        "title": "Banque"
+      },
+      "id": "ID",
+      "nom": "Nom",
+      "adresse": "Adresse",
+      "email": "Email",
+      "compte": "Compte"
+    }
+  }
+}

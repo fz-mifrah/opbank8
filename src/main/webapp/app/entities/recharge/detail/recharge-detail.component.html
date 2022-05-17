@@ -1,0 +1,38 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="recharge">
+      <h2 data-cy="rechargeDetailsHeading"><span jhiTranslate="opbankApp.recharge.detail.title">Recharge</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ recharge.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="opbankApp.recharge.numTel">Num Tel</span></dt>
+        <dd>
+          <span>{{ recharge.numTel }}</span>
+        </dd>
+        <dt><span jhiTranslate="opbankApp.recharge.operateur">Operateur</span></dt>
+        <dd>
+          <div *ngIf="recharge.operateur">
+            <a [routerLink]="['/operateur', recharge.operateur?.id, 'view']">{{ recharge.operateur?.nomOp }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/recharge', recharge.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

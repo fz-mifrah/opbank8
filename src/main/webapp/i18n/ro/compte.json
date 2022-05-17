@@ -1,0 +1,32 @@
+{
+  "opbankApp": {
+    "compte": {
+      "home": {
+        "title": "Comptes",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Creeare o nouă entitate Compte",
+        "createOrEditLabel": "Creeare sau editare Compte",
+        "notFound": "No Comptes found"
+      },
+      "created": "A fost creată o nouă entitate Compte cu identificatorul {{ param }}",
+      "updated": "Compte cu identificatorul {{ param }} a fost actualizată",
+      "deleted": "Compte cu identificatorul {{ param }} a fost ștearsă",
+      "delete": {
+        "question": "Sunteți sigur că doriți să ștergeți Compte {{ id }}?"
+      },
+      "detail": {
+        "title": "Compte"
+      },
+      "id": "ID",
+      "rib": "Rib",
+      "dateOuverture": "Date Ouverture",
+      "code": "Code",
+      "solde": "Solde",
+      "carteBancaire": "Carte Bancaire",
+      "operation": "Operation",
+      "virement": "Virement",
+      "client": "Client",
+      "banque": "Banque"
+    }
+  }
+}

@@ -1,0 +1,157 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-client-heading" data-cy="ClientCreateUpdateHeading" jhiTranslate="opbankApp.client.home.createOrEditLabel">
+        Create or edit a Client
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="opbankApp.client.cin" for="field_cin">Cin</label>
+          <input type="text" class="form-control" name="cin" id="field_cin" data-cy="cin" formControlName="cin" />
+          <div *ngIf="editForm.get('cin')!.invalid && (editForm.get('cin')!.dirty || editForm.get('cin')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('cin')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="opbankApp.client.nom" for="field_nom">Nom</label>
+          <input type="text" class="form-control" name="nom" id="field_nom" data-cy="nom" formControlName="nom" />
+          <div *ngIf="editForm.get('nom')!.invalid && (editForm.get('nom')!.dirty || editForm.get('nom')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('nom')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="opbankApp.client.prenom" for="field_prenom">Prenom</label>
+          <input type="text" class="form-control" name="prenom" id="field_prenom" data-cy="prenom" formControlName="prenom" />
+          <div *ngIf="editForm.get('prenom')!.invalid && (editForm.get('prenom')!.dirty || editForm.get('prenom')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('prenom')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="opbankApp.client.adress" for="field_adress">Adress</label>
+          <input type="text" class="form-control" name="adress" id="field_adress" data-cy="adress" formControlName="adress" />
+          <div *ngIf="editForm.get('adress')!.invalid && (editForm.get('adress')!.dirty || editForm.get('adress')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('adress')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="opbankApp.client.postalCode" for="field_postalCode">Postal Code</label>
+          <input
+            type="number"
+            class="form-control"
+            name="postalCode"
+            id="field_postalCode"
+            data-cy="postalCode"
+            formControlName="postalCode"
+          />
+          <div *ngIf="editForm.get('postalCode')!.invalid && (editForm.get('postalCode')!.dirty || editForm.get('postalCode')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('postalCode')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('postalCode')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="opbankApp.client.dateNaissence" for="field_dateNaissence">Date Naissence</label>
+          <div class="input-group">
+            <input
+              id="field_dateNaissence"
+              data-cy="dateNaissence"
+              type="text"
+              class="form-control"
+              name="dateNaissence"
+              ngbDatepicker
+              #dateNaissenceDp="ngbDatepicker"
+              formControlName="dateNaissence"
+            />
+            <button type="button" class="btn btn-secondary" (click)="dateNaissenceDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+          <div
+            *ngIf="
+              editForm.get('dateNaissence')!.invalid && (editForm.get('dateNaissence')!.dirty || editForm.get('dateNaissence')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('dateNaissence')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="opbankApp.client.email" for="field_email">Email</label>
+          <input type="text" class="form-control" name="email" id="field_email" data-cy="email" formControlName="email" />
+          <div *ngIf="editForm.get('email')!.invalid && (editForm.get('email')!.dirty || editForm.get('email')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('email')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="opbankApp.client.compte" for="field_compte">Compte</label>
+          <select class="form-control" id="field_compte" data-cy="compte" name="compte" formControlName="compte">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="compteOption.id === editForm.get('compte')!.value?.id ? editForm.get('compte')!.value : compteOption"
+              *ngFor="let compteOption of comptesCollection; trackBy: trackCompteById"
+            >
+              {{ compteOption.rib }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

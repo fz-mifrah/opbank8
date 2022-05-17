@@ -1,0 +1,31 @@
+{
+  "opbankApp": {
+    "client": {
+      "home": {
+        "title": "Clients",
+        "refreshListLabel": "Обновить список",
+        "createLabel": "Создать новый Client",
+        "createOrEditLabel": "Создать или отредактировать Client",
+        "notFound": "Clients не найдено"
+      },
+      "created": "Новый Client создан с идентификатором {{ param }}",
+      "updated": "Client обновлен с идентификатором {{ param }}",
+      "deleted": "Client удален с идентификатором {{ param }}",
+      "delete": {
+        "question": "Вы уверены что хотите удалить Client {{ id }}?"
+      },
+      "detail": {
+        "title": "Client"
+      },
+      "id": "ID",
+      "cin": "Cin",
+      "nom": "Nom",
+      "prenom": "Prenom",
+      "adress": "Adress",
+      "postalCode": "Postal Code",
+      "dateNaissence": "Date Naissence",
+      "email": "Email",
+      "compte": "Compte"
+    }
+  }
+}

@@ -1,0 +1,90 @@
+<div>
+  <h2 id="page-heading" data-cy="PaimentFactureHeading">
+    <span jhiTranslate="opbankApp.paimentFacture.home.title">Paiment Factures</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="reset()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="opbankApp.paimentFacture.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-paiment-facture"
+        [routerLink]="['/paiment-facture/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="opbankApp.paimentFacture.home.createLabel"> Create a new Paiment Facture </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="paimentFactures?.length === 0">
+    <span jhiTranslate="opbankApp.paimentFacture.home.notFound">No paimentFactures found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="paimentFactures && paimentFactures.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="reset()">
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="referance">
+            <span jhiTranslate="opbankApp.paimentFacture.referance">Referance</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="serviceClass.nomService">
+            <span jhiTranslate="opbankApp.paimentFacture.serviceClass">Service Class</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+        <tr *ngFor="let paimentFacture of paimentFactures; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/paiment-facture', paimentFacture.id, 'view']">{{ paimentFacture.id }}</a>
+          </td>
+          <td>{{ paimentFacture.referance }}</td>
+          <td>
+            <div *ngIf="paimentFacture.serviceClass">
+              <a [routerLink]="['/service-class', paimentFacture.serviceClass?.id, 'view']">{{
+                paimentFacture.serviceClass?.nomService
+              }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/paiment-facture', paimentFacture.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/paiment-facture', paimentFacture.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(paimentFacture)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

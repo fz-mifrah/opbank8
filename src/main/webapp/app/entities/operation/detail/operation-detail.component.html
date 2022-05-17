@@ -1,0 +1,78 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="operation">
+      <h2 data-cy="operationDetailsHeading"><span jhiTranslate="opbankApp.operation.detail.title">Operation</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ operation.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="opbankApp.operation.numOperation">Num Operation</span></dt>
+        <dd>
+          <span>{{ operation.numOperation }}</span>
+        </dd>
+        <dt><span jhiTranslate="opbankApp.operation.date">Date</span></dt>
+        <dd>
+          <span>{{ operation.date | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="opbankApp.operation.typeOperatin">Type Operatin</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'opbankApp.TypeOperation.' + operation.typeOperatin }}">{{ operation.typeOperatin }}</span>
+        </dd>
+        <dt><span jhiTranslate="opbankApp.operation.etatOperation">Etat Operation</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'opbankApp.EtatOperation.' + operation.etatOperation }}">{{ operation.etatOperation }}</span>
+        </dd>
+        <dt><span jhiTranslate="opbankApp.operation.montant">Montant</span></dt>
+        <dd>
+          <span>{{ operation.montant }}</span>
+        </dd>
+        <dt><span jhiTranslate="opbankApp.operation.virement">Virement</span></dt>
+        <dd>
+          <div *ngIf="operation.virement">
+            <a [routerLink]="['/virement', operation.virement?.id, 'view']">{{ operation.virement?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="opbankApp.operation.transfer">Transfer</span></dt>
+        <dd>
+          <div *ngIf="operation.transfer">
+            <a [routerLink]="['/transfer', operation.transfer?.id, 'view']">{{ operation.transfer?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="opbankApp.operation.recharge">Recharge</span></dt>
+        <dd>
+          <div *ngIf="operation.recharge">
+            <a [routerLink]="['/recharge', operation.recharge?.id, 'view']">{{ operation.recharge?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="opbankApp.operation.paimentFacture">Paiment Facture</span></dt>
+        <dd>
+          <div *ngIf="operation.paimentFacture">
+            <a [routerLink]="['/paiment-facture', operation.paimentFacture?.id, 'view']">{{ operation.paimentFacture?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="opbankApp.operation.compte">Compte</span></dt>
+        <dd>
+          <div *ngIf="operation.compte">
+            <a [routerLink]="['/compte', operation.compte?.id, 'view']">{{ operation.compte?.rib }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/operation', operation.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

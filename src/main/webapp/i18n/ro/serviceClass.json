@@ -1,0 +1,25 @@
+{
+  "opbankApp": {
+    "serviceClass": {
+      "home": {
+        "title": "Service Classes",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Creeare o nouă entitate Service Class",
+        "createOrEditLabel": "Creeare sau editare Service Class",
+        "notFound": "No Service Classes found"
+      },
+      "created": "A fost creată o nouă entitate Service Class cu identificatorul {{ param }}",
+      "updated": "Service Class cu identificatorul {{ param }} a fost actualizată",
+      "deleted": "Service Class cu identificatorul {{ param }} a fost ștearsă",
+      "delete": {
+        "question": "Sunteți sigur că doriți să ștergeți Service Class {{ id }}?"
+      },
+      "detail": {
+        "title": "Service Class"
+      },
+      "id": "ID",
+      "nomService": "Nom Service",
+      "paimentFacture": "Paiment Facture"
+    }
+  }
+}

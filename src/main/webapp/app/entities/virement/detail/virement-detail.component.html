@@ -1,0 +1,38 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="virement">
+      <h2 data-cy="virementDetailsHeading"><span jhiTranslate="opbankApp.virement.detail.title">Virement</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ virement.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="opbankApp.virement.description">Description</span></dt>
+        <dd>
+          <span>{{ virement.description }}</span>
+        </dd>
+        <dt><span jhiTranslate="opbankApp.virement.compte">Compte</span></dt>
+        <dd>
+          <div *ngIf="virement.compte">
+            <a [routerLink]="['/compte', virement.compte?.id, 'view']">{{ virement.compte?.rib }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/virement', virement.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

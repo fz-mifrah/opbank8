@@ -1,0 +1,26 @@
+{
+  "opbankApp": {
+    "recharge": {
+      "home": {
+        "title": "Recharges",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Creeare o nouă entitate Recharge",
+        "createOrEditLabel": "Creeare sau editare Recharge",
+        "notFound": "No Recharges found"
+      },
+      "created": "A fost creată o nouă entitate Recharge cu identificatorul {{ param }}",
+      "updated": "Recharge cu identificatorul {{ param }} a fost actualizată",
+      "deleted": "Recharge cu identificatorul {{ param }} a fost ștearsă",
+      "delete": {
+        "question": "Sunteți sigur că doriți să ștergeți Recharge {{ id }}?"
+      },
+      "detail": {
+        "title": "Recharge"
+      },
+      "id": "ID",
+      "numTel": "Num Tel",
+      "operateur": "Operateur",
+      "operation": "Operation"
+    }
+  }
+}
