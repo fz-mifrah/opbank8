@@ -1,0 +1,33 @@
+{
+  "opbankApp": {
+    "operation": {
+      "home": {
+        "title": "Operations",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Creeare o nouă entitate Operation",
+        "createOrEditLabel": "Creeare sau editare Operation",
+        "notFound": "No Operations found"
+      },
+      "created": "A fost creată o nouă entitate Operation cu identificatorul {{ param }}",
+      "updated": "Operation cu identificatorul {{ param }} a fost actualizată",
+      "deleted": "Operation cu identificatorul {{ param }} a fost ștearsă",
+      "delete": {
+        "question": "Sunteți sigur că doriți să ștergeți Operation {{ id }}?"
+      },
+      "detail": {
+        "title": "Operation"
+      },
+      "id": "ID",
+      "numOperation": "Num Operation",
+      "date": "Date",
+      "typeOperatin": "Type Operatin",
+      "etatOperation": "Etat Operation",
+      "montant": "Montant",
+      "virement": "Virement",
+      "transfer": "Transfer",
+      "recharge": "Recharge",
+      "paimentFacture": "Paiment Facture",
+      "compte": "Compte"
+    }
+  }
+}

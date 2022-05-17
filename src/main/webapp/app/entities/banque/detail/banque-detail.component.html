@@ -1,0 +1,40 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="banque">
+      <h2 data-cy="banqueDetailsHeading"><span jhiTranslate="opbankApp.banque.detail.title">Banque</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ banque.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="opbankApp.banque.nom">Nom</span></dt>
+        <dd>
+          <span>{{ banque.nom }}</span>
+        </dd>
+        <dt><span jhiTranslate="opbankApp.banque.adresse">Adresse</span></dt>
+        <dd>
+          <span>{{ banque.adresse }}</span>
+        </dd>
+        <dt><span jhiTranslate="opbankApp.banque.email">Email</span></dt>
+        <dd>
+          <span>{{ banque.email }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/banque', banque.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

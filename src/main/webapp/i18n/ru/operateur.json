@@ -1,0 +1,25 @@
+{
+  "opbankApp": {
+    "operateur": {
+      "home": {
+        "title": "Operateurs",
+        "refreshListLabel": "Обновить список",
+        "createLabel": "Создать новый Operateur",
+        "createOrEditLabel": "Создать или отредактировать Operateur",
+        "notFound": "Operateurs не найдено"
+      },
+      "created": "Новый Operateur создан с идентификатором {{ param }}",
+      "updated": "Operateur обновлен с идентификатором {{ param }}",
+      "deleted": "Operateur удален с идентификатором {{ param }}",
+      "delete": {
+        "question": "Вы уверены что хотите удалить Operateur {{ id }}?"
+      },
+      "detail": {
+        "title": "Operateur"
+      },
+      "id": "ID",
+      "nomOp": "Nom Op",
+      "recharge": "Recharge"
+    }
+  }
+}

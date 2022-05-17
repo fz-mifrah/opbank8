@@ -1,0 +1,25 @@
+{
+  "opbankApp": {
+    "carteBancaire": {
+      "home": {
+        "title": "Carte Bancaires",
+        "refreshListLabel": "Обновить список",
+        "createLabel": "Создать новый Carte Bancaire",
+        "createOrEditLabel": "Создать или отредактировать Carte Bancaire",
+        "notFound": "Carte Bancaires не найдено"
+      },
+      "created": "Новый Carte Bancaire создан с идентификатором {{ param }}",
+      "updated": "Carte Bancaire обновлен с идентификатором {{ param }}",
+      "deleted": "Carte Bancaire удален с идентификатором {{ param }}",
+      "delete": {
+        "question": "Вы уверены что хотите удалить Carte Bancaire {{ id }}?"
+      },
+      "detail": {
+        "title": "Carte Bancaire"
+      },
+      "id": "ID",
+      "numCarte": "Num Carte",
+      "compte": "Compte"
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "opbankApp": {
+    "operation": {
+      "home": {
+        "title": "Operations",
+        "refreshListLabel": "Обновить список",
+        "createLabel": "Создать новый Operation",
+        "createOrEditLabel": "Создать или отредактировать Operation",
+        "notFound": "Operations не найдено"
+      },
+      "created": "Новый Operation создан с идентификатором {{ param }}",
+      "updated": "Operation обновлен с идентификатором {{ param }}",
+      "deleted": "Operation удален с идентификатором {{ param }}",
+      "delete": {
+        "question": "Вы уверены что хотите удалить Operation {{ id }}?"
+      },
+      "detail": {
+        "title": "Operation"
+      },
+      "id": "ID",
+      "numOperation": "Num Operation",
+      "date": "Date",
+      "typeOperatin": "Type Operatin",
+      "etatOperation": "Etat Operation",
+      "montant": "Montant",
+      "virement": "Virement",
+      "transfer": "Transfer",
+      "recharge": "Recharge",
+      "paimentFacture": "Paiment Facture",
+      "compte": "Compte"
+    }
+  }
+}

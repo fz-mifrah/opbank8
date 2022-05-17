@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <!--
+        Added the constraints for entity Operation.
+    -->
+    <changeSet id="20220517193527-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="virement_id"
+                                 baseTableName="operation"
+                                 constraintName="fk_operation__virement_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="virement"/>
+
+        <addForeignKeyConstraint baseColumnNames="transfer_id"
+                                 baseTableName="operation"
+                                 constraintName="fk_operation__transfer_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="transfer"/>
+
+        <addForeignKeyConstraint baseColumnNames="recharge_id"
+                                 baseTableName="operation"
+                                 constraintName="fk_operation__recharge_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="recharge"/>
+
+        <addForeignKeyConstraint baseColumnNames="paiment_facture_id"
+                                 baseTableName="operation"
+                                 constraintName="fk_operation__paiment_facture_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="paiment_facture"/>
+
+        <addForeignKeyConstraint baseColumnNames="compte_id"
+                                 baseTableName="operation"
+                                 constraintName="fk_operation__compte_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="compte"/>
+    </changeSet>
+</databaseChangeLog>

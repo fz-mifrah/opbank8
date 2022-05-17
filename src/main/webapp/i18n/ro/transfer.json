@@ -1,0 +1,27 @@
+{
+  "opbankApp": {
+    "transfer": {
+      "home": {
+        "title": "Transfers",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Creeare o nouă entitate Transfer",
+        "createOrEditLabel": "Creeare sau editare Transfer",
+        "notFound": "No Transfers found"
+      },
+      "created": "A fost creată o nouă entitate Transfer cu identificatorul {{ param }}",
+      "updated": "Transfer cu identificatorul {{ param }} a fost actualizată",
+      "deleted": "Transfer cu identificatorul {{ param }} a fost ștearsă",
+      "delete": {
+        "question": "Sunteți sigur că doriți să ștergeți Transfer {{ id }}?"
+      },
+      "detail": {
+        "title": "Transfer"
+      },
+      "id": "ID",
+      "cin": "Cin",
+      "nomPrenom": "Nom Prenom",
+      "tel": "Tel",
+      "operation": "Operation"
+    }
+  }
+}

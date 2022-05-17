@@ -1,0 +1,26 @@
+{
+  "opbankApp": {
+    "virement": {
+      "home": {
+        "title": "Virements",
+        "refreshListLabel": "Обновить список",
+        "createLabel": "Создать новый Virement",
+        "createOrEditLabel": "Создать или отредактировать Virement",
+        "notFound": "Virements не найдено"
+      },
+      "created": "Новый Virement создан с идентификатором {{ param }}",
+      "updated": "Virement обновлен с идентификатором {{ param }}",
+      "deleted": "Virement удален с идентификатором {{ param }}",
+      "delete": {
+        "question": "Вы уверены что хотите удалить Virement {{ id }}?"
+      },
+      "detail": {
+        "title": "Virement"
+      },
+      "id": "ID",
+      "description": "Description",
+      "operation": "Operation",
+      "compte": "Compte"
+    }
+  }
+}

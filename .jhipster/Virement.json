@@ -1,0 +1,36 @@
+{
+  "applications": ["opbank"],
+  "changelogDate": "20220517193627",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "virement",
+  "fields": [
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Virement",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "numOperation",
+      "otherEntityName": "operation",
+      "otherEntityRelationshipName": "virement",
+      "ownerSide": false,
+      "relationshipName": "operation",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityField": "rib",
+      "otherEntityName": "compte",
+      "otherEntityRelationshipName": "virement",
+      "relationshipName": "compte",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}
