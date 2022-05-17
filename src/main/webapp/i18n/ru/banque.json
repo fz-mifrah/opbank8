@@ -1,0 +1,27 @@
+{
+  "opbankApp": {
+    "banque": {
+      "home": {
+        "title": "Banques",
+        "refreshListLabel": "Обновить список",
+        "createLabel": "Создать новый Banque",
+        "createOrEditLabel": "Создать или отредактировать Banque",
+        "notFound": "Banques не найдено"
+      },
+      "created": "Новый Banque создан с идентификатором {{ param }}",
+      "updated": "Banque обновлен с идентификатором {{ param }}",
+      "deleted": "Banque удален с идентификатором {{ param }}",
+      "delete": {
+        "question": "Вы уверены что хотите удалить Banque {{ id }}?"
+      },
+      "detail": {
+        "title": "Banque"
+      },
+      "id": "ID",
+      "nom": "Nom",
+      "adresse": "Adresse",
+      "email": "Email",
+      "compte": "Compte"
+    }
+  }
+}

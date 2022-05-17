@@ -1,0 +1,27 @@
+{
+  "opbankApp": {
+    "transfer": {
+      "home": {
+        "title": "Transfers",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Transfer",
+        "createOrEditLabel": "Create or edit a Transfer",
+        "notFound": "No Transfers found"
+      },
+      "created": "A new Transfer is created with identifier {{ param }}",
+      "updated": "A Transfer is updated with identifier {{ param }}",
+      "deleted": "A Transfer is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Transfer {{ id }}?"
+      },
+      "detail": {
+        "title": "Transfer"
+      },
+      "id": "ID",
+      "cin": "Cin",
+      "nomPrenom": "Nom Prenom",
+      "tel": "Tel",
+      "operation": "Operation"
+    }
+  }
+}

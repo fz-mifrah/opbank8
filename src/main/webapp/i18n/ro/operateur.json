@@ -1,0 +1,25 @@
+{
+  "opbankApp": {
+    "operateur": {
+      "home": {
+        "title": "Operateurs",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Creeare o nouă entitate Operateur",
+        "createOrEditLabel": "Creeare sau editare Operateur",
+        "notFound": "No Operateurs found"
+      },
+      "created": "A fost creată o nouă entitate Operateur cu identificatorul {{ param }}",
+      "updated": "Operateur cu identificatorul {{ param }} a fost actualizată",
+      "deleted": "Operateur cu identificatorul {{ param }} a fost ștearsă",
+      "delete": {
+        "question": "Sunteți sigur că doriți să ștergeți Operateur {{ id }}?"
+      },
+      "detail": {
+        "title": "Operateur"
+      },
+      "id": "ID",
+      "nomOp": "Nom Op",
+      "recharge": "Recharge"
+    }
+  }
+}

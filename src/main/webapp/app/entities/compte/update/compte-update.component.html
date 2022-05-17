@@ -1,0 +1,128 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-compte-heading" data-cy="CompteCreateUpdateHeading" jhiTranslate="opbankApp.compte.home.createOrEditLabel">
+        Create or edit a Compte
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="opbankApp.compte.rib" for="field_rib">Rib</label>
+          <input type="number" class="form-control" name="rib" id="field_rib" data-cy="rib" formControlName="rib" />
+          <div *ngIf="editForm.get('rib')!.invalid && (editForm.get('rib')!.dirty || editForm.get('rib')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('rib')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('rib')?.errors?.number" jhiTranslate="entity.validation.number">
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="opbankApp.compte.dateOuverture" for="field_dateOuverture">Date Ouverture</label>
+          <div class="input-group">
+            <input
+              id="field_dateOuverture"
+              data-cy="dateOuverture"
+              type="text"
+              class="form-control"
+              name="dateOuverture"
+              ngbDatepicker
+              #dateOuvertureDp="ngbDatepicker"
+              formControlName="dateOuverture"
+            />
+            <button type="button" class="btn btn-secondary" (click)="dateOuvertureDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="opbankApp.compte.code" for="field_code">Code</label>
+          <input type="number" class="form-control" name="code" id="field_code" data-cy="code" formControlName="code" />
+          <div *ngIf="editForm.get('code')!.invalid && (editForm.get('code')!.dirty || editForm.get('code')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('code')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('code')?.errors?.number" jhiTranslate="entity.validation.number">
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="opbankApp.compte.solde" for="field_solde">Solde</label>
+          <input type="number" class="form-control" name="solde" id="field_solde" data-cy="solde" formControlName="solde" />
+          <div *ngIf="editForm.get('solde')!.invalid && (editForm.get('solde')!.dirty || editForm.get('solde')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('solde')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('solde')?.errors?.number" jhiTranslate="entity.validation.number">
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="opbankApp.compte.carteBancaire" for="field_carteBancaire">Carte Bancaire</label>
+          <select
+            class="form-control"
+            id="field_carteBancaire"
+            data-cy="carteBancaire"
+            name="carteBancaire"
+            formControlName="carteBancaire"
+          >
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                carteBancaireOption.id === editForm.get('carteBancaire')!.value?.id
+                  ? editForm.get('carteBancaire')!.value
+                  : carteBancaireOption
+              "
+              *ngFor="let carteBancaireOption of carteBancairesCollection; trackBy: trackCarteBancaireById"
+            >
+              {{ carteBancaireOption.numCarte }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="opbankApp.compte.banque" for="field_banque">Banque</label>
+          <select class="form-control" id="field_banque" data-cy="banque" name="banque" formControlName="banque">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="banqueOption.id === editForm.get('banque')!.value?.id ? editForm.get('banque')!.value : banqueOption"
+              *ngFor="let banqueOption of banquesSharedCollection; trackBy: trackBanqueById"
+            >
+              {{ banqueOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

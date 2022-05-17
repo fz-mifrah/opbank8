@@ -1,0 +1,196 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-operation-heading" data-cy="OperationCreateUpdateHeading" jhiTranslate="opbankApp.operation.home.createOrEditLabel">
+        Create or edit a Operation
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="opbankApp.operation.numOperation" for="field_numOperation">Num Operation</label>
+          <input
+            type="text"
+            class="form-control"
+            name="numOperation"
+            id="field_numOperation"
+            data-cy="numOperation"
+            formControlName="numOperation"
+          />
+          <div
+            *ngIf="editForm.get('numOperation')!.invalid && (editForm.get('numOperation')!.dirty || editForm.get('numOperation')!.touched)"
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('numOperation')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="opbankApp.operation.date" for="field_date">Date</label>
+          <div class="input-group">
+            <input
+              id="field_date"
+              data-cy="date"
+              type="text"
+              class="form-control"
+              name="date"
+              ngbDatepicker
+              #dateDp="ngbDatepicker"
+              formControlName="date"
+            />
+            <button type="button" class="btn btn-secondary" (click)="dateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="opbankApp.operation.typeOperatin" for="field_typeOperatin">Type Operatin</label>
+          <select class="form-control" name="typeOperatin" formControlName="typeOperatin" id="field_typeOperatin" data-cy="typeOperatin">
+            <option [ngValue]="null">{{ 'opbankApp.TypeOperation.null' | translate }}</option>
+            <option *ngFor="let typeOperation of typeOperationValues" [value]="typeOperation">
+              {{ 'opbankApp.TypeOperation.' + typeOperation | translate }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="opbankApp.operation.etatOperation" for="field_etatOperation">Etat Operation</label>
+          <select
+            class="form-control"
+            name="etatOperation"
+            formControlName="etatOperation"
+            id="field_etatOperation"
+            data-cy="etatOperation"
+          >
+            <option [ngValue]="null">{{ 'opbankApp.EtatOperation.null' | translate }}</option>
+            <option *ngFor="let etatOperation of etatOperationValues" [value]="etatOperation">
+              {{ 'opbankApp.EtatOperation.' + etatOperation | translate }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="opbankApp.operation.montant" for="field_montant">Montant</label>
+          <input type="number" class="form-control" name="montant" id="field_montant" data-cy="montant" formControlName="montant" />
+          <div *ngIf="editForm.get('montant')!.invalid && (editForm.get('montant')!.dirty || editForm.get('montant')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('montant')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('montant')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="opbankApp.operation.virement" for="field_virement">Virement</label>
+          <select class="form-control" id="field_virement" data-cy="virement" name="virement" formControlName="virement">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="virementOption.id === editForm.get('virement')!.value?.id ? editForm.get('virement')!.value : virementOption"
+              *ngFor="let virementOption of virementsCollection; trackBy: trackVirementById"
+            >
+              {{ virementOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="opbankApp.operation.transfer" for="field_transfer">Transfer</label>
+          <select class="form-control" id="field_transfer" data-cy="transfer" name="transfer" formControlName="transfer">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="transferOption.id === editForm.get('transfer')!.value?.id ? editForm.get('transfer')!.value : transferOption"
+              *ngFor="let transferOption of transfersCollection; trackBy: trackTransferById"
+            >
+              {{ transferOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="opbankApp.operation.recharge" for="field_recharge">Recharge</label>
+          <select class="form-control" id="field_recharge" data-cy="recharge" name="recharge" formControlName="recharge">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="rechargeOption.id === editForm.get('recharge')!.value?.id ? editForm.get('recharge')!.value : rechargeOption"
+              *ngFor="let rechargeOption of rechargesCollection; trackBy: trackRechargeById"
+            >
+              {{ rechargeOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="opbankApp.operation.paimentFacture" for="field_paimentFacture">Paiment Facture</label>
+          <select
+            class="form-control"
+            id="field_paimentFacture"
+            data-cy="paimentFacture"
+            name="paimentFacture"
+            formControlName="paimentFacture"
+          >
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                paimentFactureOption.id === editForm.get('paimentFacture')!.value?.id
+                  ? editForm.get('paimentFacture')!.value
+                  : paimentFactureOption
+              "
+              *ngFor="let paimentFactureOption of paimentFacturesCollection; trackBy: trackPaimentFactureById"
+            >
+              {{ paimentFactureOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="opbankApp.operation.compte" for="field_compte">Compte</label>
+          <select class="form-control" id="field_compte" data-cy="compte" name="compte" formControlName="compte">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="compteOption.id === editForm.get('compte')!.value?.id ? editForm.get('compte')!.value : compteOption"
+              *ngFor="let compteOption of comptesSharedCollection; trackBy: trackCompteById"
+            >
+              {{ compteOption.rib }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

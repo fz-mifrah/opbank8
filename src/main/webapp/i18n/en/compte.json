@@ -1,0 +1,32 @@
+{
+  "opbankApp": {
+    "compte": {
+      "home": {
+        "title": "Comptes",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Compte",
+        "createOrEditLabel": "Create or edit a Compte",
+        "notFound": "No Comptes found"
+      },
+      "created": "A new Compte is created with identifier {{ param }}",
+      "updated": "A Compte is updated with identifier {{ param }}",
+      "deleted": "A Compte is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Compte {{ id }}?"
+      },
+      "detail": {
+        "title": "Compte"
+      },
+      "id": "ID",
+      "rib": "Rib",
+      "dateOuverture": "Date Ouverture",
+      "code": "Code",
+      "solde": "Solde",
+      "carteBancaire": "Carte Bancaire",
+      "operation": "Operation",
+      "virement": "Virement",
+      "client": "Client",
+      "banque": "Banque"
+    }
+  }
+}

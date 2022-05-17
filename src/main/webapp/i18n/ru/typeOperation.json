@@ -1,0 +1,11 @@
+{
+  "opbankApp": {
+    "TypeOperation": {
+      "null": "",
+      "TypeVirement": "TypeVirement",
+      "TypeTransfer": "TypeTransfer",
+      "TypeRecharge": "TypeRecharge",
+      "TypePaimentFacture": "TypePaimentFacture"
+    }
+  }
+}

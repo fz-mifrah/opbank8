@@ -1,0 +1,26 @@
+{
+  "opbankApp": {
+    "recharge": {
+      "home": {
+        "title": "Recharges",
+        "refreshListLabel": "Обновить список",
+        "createLabel": "Создать новый Recharge",
+        "createOrEditLabel": "Создать или отредактировать Recharge",
+        "notFound": "Recharges не найдено"
+      },
+      "created": "Новый Recharge создан с идентификатором {{ param }}",
+      "updated": "Recharge обновлен с идентификатором {{ param }}",
+      "deleted": "Recharge удален с идентификатором {{ param }}",
+      "delete": {
+        "question": "Вы уверены что хотите удалить Recharge {{ id }}?"
+      },
+      "detail": {
+        "title": "Recharge"
+      },
+      "id": "ID",
+      "numTel": "Num Tel",
+      "operateur": "Operateur",
+      "operation": "Operation"
+    }
+  }
+}

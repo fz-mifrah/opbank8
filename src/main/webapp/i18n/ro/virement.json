@@ -1,0 +1,26 @@
+{
+  "opbankApp": {
+    "virement": {
+      "home": {
+        "title": "Virements",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Creeare o nouă entitate Virement",
+        "createOrEditLabel": "Creeare sau editare Virement",
+        "notFound": "No Virements found"
+      },
+      "created": "A fost creată o nouă entitate Virement cu identificatorul {{ param }}",
+      "updated": "Virement cu identificatorul {{ param }} a fost actualizată",
+      "deleted": "Virement cu identificatorul {{ param }} a fost ștearsă",
+      "delete": {
+        "question": "Sunteți sigur că doriți să ștergeți Virement {{ id }}?"
+      },
+      "detail": {
+        "title": "Virement"
+      },
+      "id": "ID",
+      "description": "Description",
+      "operation": "Operation",
+      "compte": "Compte"
+    }
+  }
+}
