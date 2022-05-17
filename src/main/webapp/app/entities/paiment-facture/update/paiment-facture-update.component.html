@@ -1,0 +1,74 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-paiment-facture-heading"
+        data-cy="PaimentFactureCreateUpdateHeading"
+        jhiTranslate="opbankApp.paimentFacture.home.createOrEditLabel"
+      >
+        Create or edit a Paiment Facture
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="opbankApp.paimentFacture.referance" for="field_referance">Referance</label>
+          <input type="number" class="form-control" name="referance" id="field_referance" data-cy="referance" formControlName="referance" />
+          <div *ngIf="editForm.get('referance')!.invalid && (editForm.get('referance')!.dirty || editForm.get('referance')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('referance')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('referance')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="opbankApp.paimentFacture.serviceClass" for="field_serviceClass">Service Class</label>
+          <select class="form-control" id="field_serviceClass" data-cy="serviceClass" name="serviceClass" formControlName="serviceClass">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                serviceClassOption.id === editForm.get('serviceClass')!.value?.id ? editForm.get('serviceClass')!.value : serviceClassOption
+              "
+              *ngFor="let serviceClassOption of serviceClassesSharedCollection; trackBy: trackServiceClassById"
+            >
+              {{ serviceClassOption.nomService }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

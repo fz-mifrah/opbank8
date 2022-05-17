@@ -1,0 +1,27 @@
+{
+  "opbankApp": {
+    "banque": {
+      "home": {
+        "title": "Banques",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Creeare o nouă entitate Banque",
+        "createOrEditLabel": "Creeare sau editare Banque",
+        "notFound": "No Banques found"
+      },
+      "created": "A fost creată o nouă entitate Banque cu identificatorul {{ param }}",
+      "updated": "Banque cu identificatorul {{ param }} a fost actualizată",
+      "deleted": "Banque cu identificatorul {{ param }} a fost ștearsă",
+      "delete": {
+        "question": "Sunteți sigur că doriți să ștergeți Banque {{ id }}?"
+      },
+      "detail": {
+        "title": "Banque"
+      },
+      "id": "ID",
+      "nom": "Nom",
+      "adresse": "Adresse",
+      "email": "Email",
+      "compte": "Compte"
+    }
+  }
+}

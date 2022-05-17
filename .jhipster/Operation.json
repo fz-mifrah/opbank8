@@ -1,0 +1,76 @@
+{
+  "applications": ["opbank"],
+  "changelogDate": "20220517193527",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "operation",
+  "fields": [
+    {
+      "fieldName": "numOperation",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "date",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "typeOperatin",
+      "fieldType": "TypeOperation",
+      "fieldValues": "TypeVirement,TypeTransfer,TypeRecharge,TypePaimentFacture"
+    },
+    {
+      "fieldName": "etatOperation",
+      "fieldType": "EtatOperation",
+      "fieldValues": "Cree,EnCours,Valide,Annulee,Rejetee"
+    },
+    {
+      "fieldName": "montant",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Operation",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "virement",
+      "otherEntityRelationshipName": "operation",
+      "ownerSide": true,
+      "relationshipName": "virement",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "transfer",
+      "otherEntityRelationshipName": "operation",
+      "ownerSide": true,
+      "relationshipName": "transfer",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "recharge",
+      "otherEntityRelationshipName": "operation",
+      "ownerSide": true,
+      "relationshipName": "recharge",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "paimentFacture",
+      "otherEntityRelationshipName": "operation",
+      "ownerSide": true,
+      "relationshipName": "paimentFacture",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityField": "rib",
+      "otherEntityName": "compte",
+      "otherEntityRelationshipName": "operation",
+      "relationshipName": "compte",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}

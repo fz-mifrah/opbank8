@@ -1,0 +1,128 @@
+application {
+  config {
+    baseName opbank,
+    applicationType monolith,
+    authenticationType jwt
+    packageName com.iga.opbank,
+    prodDatabaseType postgresql,
+    cacheProvider hazelcast,
+    buildTool maven,
+    clientFramework angular,
+    testFrameworks [cypress],
+	nativeLanguage en,
+    languages [en, ro, ru]
+  }
+  entities *
+}
+
+entity Client {
+    cin String required,
+    nom String required,
+    prenom String required,
+    adress String required,
+    postalCode Long required,
+    dateNaissence LocalDate required,
+    email String required
+}
+
+entity Compte {
+	rib Long required,
+    dateOuverture LocalDate,
+    code Integer required,
+    solde Long required
+}
+
+entity Banque {
+	nom String required,
+	adresse String,
+	email String required
+}
+
+entity CarteBancaire {
+	numCarte String required
+    
+}
+enum TypeOperation {
+	TypeVirement, TypeTransfer, TypeRecharge, TypePaimentFacture
+}
+
+enum EtatOperation {
+	Cree, EnCours, Valide, Annulee, Rejetee
+}
+
+entity Operation {
+	numOperation String required,
+    date LocalDate,
+    typeOperatin TypeOperation,
+    etatOperation EtatOperation,
+    montant Double required
+}
+
+entity Virement {
+	description String
+}
+
+/*entity Beneficiaire {
+	nomPrenom String required,
+	numCompte Long required
+}
+
+entity Destinataire {
+	nom String required,
+	prenom String required,
+	rib Long required
+}
+*/
+entity Transfer {
+	cin String required,
+    nomPrenom String required,
+    tel Long
+}
+
+entity Recharge {
+    numTel Long required
+}
+
+entity Operateur {
+	nomOp String required
+}
+
+entity PaimentFacture {
+    referance Long required
+}
+
+entity ServiceClass {
+	nomService String required
+}
+
+relationship OneToOne {
+	Client{compte(rib) } to Compte{client(nom) },
+    Compte{carteBancaire(numCarte)} to CarteBancaire{compte(rib)},
+    Operation{virement} to Virement{operation(numOperation)},
+    Operation{transfer} to Transfer{operation(numOperation)},
+    Operation{recharge} to Recharge{operation(numOperation)},
+    Operation{paimentFacture} to PaimentFacture{operation(numOperation)}
+
+}
+
+relationship OneToMany {
+    Banque to Compte{banque},
+    Compte to Operation{compte(rib)},
+    Compte{virement} to Virement{compte(rib)}
+}
+
+relationship ManyToOne {
+	Recharge{operateur(nomOp)} to Operateur{recharge},
+    PaimentFacture{serviceClass(nomService)} to ServiceClass{paimentFacture}
+    
+}
+
+paginate Client, Compte with pagination
+paginate Operation, CarteBancaire with pagination
+paginate Virement, Transfer, Recharge, PaimentFacture with infinite-scroll
+
+dto * with mapstruct
+    
+service all with serviceImpl
+
+

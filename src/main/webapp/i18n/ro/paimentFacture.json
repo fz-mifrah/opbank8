@@ -1,0 +1,26 @@
+{
+  "opbankApp": {
+    "paimentFacture": {
+      "home": {
+        "title": "Paiment Factures",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Creeare o nouă entitate Paiment Facture",
+        "createOrEditLabel": "Creeare sau editare Paiment Facture",
+        "notFound": "No Paiment Factures found"
+      },
+      "created": "A fost creată o nouă entitate Paiment Facture cu identificatorul {{ param }}",
+      "updated": "Paiment Facture cu identificatorul {{ param }} a fost actualizată",
+      "deleted": "Paiment Facture cu identificatorul {{ param }} a fost ștearsă",
+      "delete": {
+        "question": "Sunteți sigur că doriți să ștergeți Paiment Facture {{ id }}?"
+      },
+      "detail": {
+        "title": "Paiment Facture"
+      },
+      "id": "ID",
+      "referance": "Referance",
+      "serviceClass": "Service Class",
+      "operation": "Operation"
+    }
+  }
+}

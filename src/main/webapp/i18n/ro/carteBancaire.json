@@ -1,0 +1,25 @@
+{
+  "opbankApp": {
+    "carteBancaire": {
+      "home": {
+        "title": "Carte Bancaires",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Creeare o nouă entitate Carte Bancaire",
+        "createOrEditLabel": "Creeare sau editare Carte Bancaire",
+        "notFound": "No Carte Bancaires found"
+      },
+      "created": "A fost creată o nouă entitate Carte Bancaire cu identificatorul {{ param }}",
+      "updated": "Carte Bancaire cu identificatorul {{ param }} a fost actualizată",
+      "deleted": "Carte Bancaire cu identificatorul {{ param }} a fost ștearsă",
+      "delete": {
+        "question": "Sunteți sigur că doriți să ștergeți Carte Bancaire {{ id }}?"
+      },
+      "detail": {
+        "title": "Carte Bancaire"
+      },
+      "id": "ID",
+      "numCarte": "Num Carte",
+      "compte": "Compte"
+    }
+  }
+}

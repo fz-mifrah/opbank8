@@ -1,0 +1,37 @@
+{
+  "applications": ["opbank"],
+  "changelogDate": "20220517194027",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "paiment_facture",
+  "fields": [
+    {
+      "fieldName": "referance",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "PaimentFacture",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "nomService",
+      "otherEntityName": "serviceClass",
+      "otherEntityRelationshipName": "paimentFacture",
+      "relationshipName": "serviceClass",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "numOperation",
+      "otherEntityName": "operation",
+      "otherEntityRelationshipName": "paimentFacture",
+      "ownerSide": false,
+      "relationshipName": "operation",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}

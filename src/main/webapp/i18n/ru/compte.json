@@ -1,0 +1,32 @@
+{
+  "opbankApp": {
+    "compte": {
+      "home": {
+        "title": "Comptes",
+        "refreshListLabel": "Обновить список",
+        "createLabel": "Создать новый Compte",
+        "createOrEditLabel": "Создать или отредактировать Compte",
+        "notFound": "Comptes не найдено"
+      },
+      "created": "Новый Compte создан с идентификатором {{ param }}",
+      "updated": "Compte обновлен с идентификатором {{ param }}",
+      "deleted": "Compte удален с идентификатором {{ param }}",
+      "delete": {
+        "question": "Вы уверены что хотите удалить Compte {{ id }}?"
+      },
+      "detail": {
+        "title": "Compte"
+      },
+      "id": "ID",
+      "rib": "Rib",
+      "dateOuverture": "Date Ouverture",
+      "code": "Code",
+      "solde": "Solde",
+      "carteBancaire": "Carte Bancaire",
+      "operation": "Operation",
+      "virement": "Virement",
+      "client": "Client",
+      "banque": "Banque"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "opbankApp": {
+    "paimentFacture": {
+      "home": {
+        "title": "Paiment Factures",
+        "refreshListLabel": "Обновить список",
+        "createLabel": "Создать новый Paiment Facture",
+        "createOrEditLabel": "Создать или отредактировать Paiment Facture",
+        "notFound": "Paiment Factures не найдено"
+      },
+      "created": "Новый Paiment Facture создан с идентификатором {{ param }}",
+      "updated": "Paiment Facture обновлен с идентификатором {{ param }}",
+      "deleted": "Paiment Facture удален с идентификатором {{ param }}",
+      "delete": {
+        "question": "Вы уверены что хотите удалить Paiment Facture {{ id }}?"
+      },
+      "detail": {
+        "title": "Paiment Facture"
+      },
+      "id": "ID",
+      "referance": "Referance",
+      "serviceClass": "Service Class",
+      "operation": "Operation"
+    }
+  }
+}

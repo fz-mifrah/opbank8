@@ -1,0 +1,27 @@
+{
+  "opbankApp": {
+    "transfer": {
+      "home": {
+        "title": "Transfers",
+        "refreshListLabel": "Обновить список",
+        "createLabel": "Создать новый Transfer",
+        "createOrEditLabel": "Создать или отредактировать Transfer",
+        "notFound": "Transfers не найдено"
+      },
+      "created": "Новый Transfer создан с идентификатором {{ param }}",
+      "updated": "Transfer обновлен с идентификатором {{ param }}",
+      "deleted": "Transfer удален с идентификатором {{ param }}",
+      "delete": {
+        "question": "Вы уверены что хотите удалить Transfer {{ id }}?"
+      },
+      "detail": {
+        "title": "Transfer"
+      },
+      "id": "ID",
+      "cin": "Cin",
+      "nomPrenom": "Nom Prenom",
+      "tel": "Tel",
+      "operation": "Operation"
+    }
+  }
+}

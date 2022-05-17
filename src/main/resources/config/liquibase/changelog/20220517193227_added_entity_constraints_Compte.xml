@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <!--
+        Added the constraints for entity Compte.
+    -->
+    <changeSet id="20220517193227-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="carte_bancaire_id"
+                                 baseTableName="compte"
+                                 constraintName="fk_compte__carte_bancaire_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="carte_bancaire"/>
+
+        <addForeignKeyConstraint baseColumnNames="banque_id"
+                                 baseTableName="compte"
+                                 constraintName="fk_compte__banque_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="banque"/>
+    </changeSet>
+</databaseChangeLog>

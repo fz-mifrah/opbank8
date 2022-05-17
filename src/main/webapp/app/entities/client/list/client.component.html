@@ -1,0 +1,110 @@
+<div>
+  <h2 id="page-heading" data-cy="ClientHeading">
+    <span jhiTranslate="opbankApp.client.home.title">Clients</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="opbankApp.client.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-client"
+        [routerLink]="['/client/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="opbankApp.client.home.createLabel"> Create a new Client </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="clients?.length === 0">
+    <span jhiTranslate="opbankApp.client.home.notFound">No clients found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="clients && clients.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="cin"><span jhiTranslate="opbankApp.client.cin">Cin</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="nom"><span jhiTranslate="opbankApp.client.nom">Nom</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="prenom"><span jhiTranslate="opbankApp.client.prenom">Prenom</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="adress"><span jhiTranslate="opbankApp.client.adress">Adress</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="postalCode">
+            <span jhiTranslate="opbankApp.client.postalCode">Postal Code</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="dateNaissence">
+            <span jhiTranslate="opbankApp.client.dateNaissence">Date Naissence</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="email"><span jhiTranslate="opbankApp.client.email">Email</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="compte.rib">
+            <span jhiTranslate="opbankApp.client.compte">Compte</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let client of clients; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/client', client.id, 'view']">{{ client.id }}</a>
+          </td>
+          <td>{{ client.cin }}</td>
+          <td>{{ client.nom }}</td>
+          <td>{{ client.prenom }}</td>
+          <td>{{ client.adress }}</td>
+          <td>{{ client.postalCode }}</td>
+          <td>{{ client.dateNaissence | formatMediumDate }}</td>
+          <td>{{ client.email }}</td>
+          <td>
+            <div *ngIf="client.compte">
+              <a [routerLink]="['/compte', client.compte?.id, 'view']">{{ client.compte?.rib }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/client', client.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/client', client.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(client)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="clients && clients.length > 0">
+    <div class="d-flex justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

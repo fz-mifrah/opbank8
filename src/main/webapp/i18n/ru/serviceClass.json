@@ -1,0 +1,25 @@
+{
+  "opbankApp": {
+    "serviceClass": {
+      "home": {
+        "title": "Service Classes",
+        "refreshListLabel": "Обновить список",
+        "createLabel": "Создать новый Service Class",
+        "createOrEditLabel": "Создать или отредактировать Service Class",
+        "notFound": "Service Classes не найдено"
+      },
+      "created": "Новый Service Class создан с идентификатором {{ param }}",
+      "updated": "Service Class обновлен с идентификатором {{ param }}",
+      "deleted": "Service Class удален с идентификатором {{ param }}",
+      "delete": {
+        "question": "Вы уверены что хотите удалить Service Class {{ id }}?"
+      },
+      "detail": {
+        "title": "Service Class"
+      },
+      "id": "ID",
+      "nomService": "Nom Service",
+      "paimentFacture": "Paiment Facture"
+    }
+  }
+}
