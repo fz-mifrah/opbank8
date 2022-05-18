@@ -37,4 +37,6 @@ public interface CompteRepository extends JpaRepository<Compte, Long> {
 
     @Query("select compte from Compte compte left join fetch compte.carteBancaire where compte.id =:id")
     Optional<Compte> findOneWithToOneRelationships(@Param("id") Long id);
+
+    Compte findByRib(Long rib);
 }

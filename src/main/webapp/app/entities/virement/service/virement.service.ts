@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
-import { IVirement, getVirementIdentifier } from '../virement.model';
+import { IVirement, getVirementIdentifier, IOrderVirement } from '../virement.model';
 
 export type EntityResponseType = HttpResponse<IVirement>;
 export type EntityArrayResponseType = HttpResponse<IVirement[]>;
@@ -18,6 +18,10 @@ export class VirementService {
 
   create(virement: IVirement): Observable<EntityResponseType> {
     return this.http.post<IVirement>(this.resourceUrl, virement, { observe: 'response' });
+  }
+
+  effectuerVirements(orderVirement: IOrderVirement): Observable<EntityResponseType> {
+    return this.http.post<IVirement>(this.resourceUrl+'/effectuerVirements', orderVirement, { observe: 'response' });
   }
 
   update(virement: IVirement): Observable<EntityResponseType> {

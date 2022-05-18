@@ -7,6 +7,12 @@ export interface IVirement {
   operation?: IOperation | null;
   compte?: ICompte | null;
 }
+export interface IOrderVirement {
+  monCompte?:number | null;
+  destCompte?:number | null;
+  montant?:number | null;
+  label?:string | null;
+}
 
 export class Virement implements IVirement {
   constructor(
@@ -14,6 +20,15 @@ export class Virement implements IVirement {
     public description?: string | null,
     public operation?: IOperation | null,
     public compte?: ICompte | null
+  ) {}
+}
+
+export class OrderVirement implements IOrderVirement {
+  constructor(
+    public monCompte?:number | null,
+    public  destCompte?:number | null,
+    public montant?:number | null,
+    public label?:string | null
   ) {}
 }
 
