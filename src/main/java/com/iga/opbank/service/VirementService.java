@@ -70,4 +70,12 @@ public interface VirementService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    /**
+     * Effectuer un virement depuis mon compte vers un compte destinataire
+     * @return 
+     *
+     * 
+     */
+    VirementDTO effectuerVirement(Long monCompte,Long compteDestinataire,Long montant,String label);
 }
