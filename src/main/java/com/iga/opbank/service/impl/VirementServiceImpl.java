@@ -133,7 +133,7 @@ public class VirementServiceImpl implements VirementService {
         log.debug("Request to delete Virement : {}", id);
         virementRepository.deleteById(id);
     }
-    
+
 
 
     @Override
@@ -148,7 +148,7 @@ public class VirementServiceImpl implements VirementService {
         log.debug("my account : " + myAccount.toString());
 
         Compte destAccount = compteRepository.findByRib(compteDestinataire);
-        log.debug("my account : " + myAccount.toString());
+        log.debug("my account : " + destAccount.toString());
 
         if (myAccount.getSolde() > montant) {
             myAccount.setSolde(myAccount.getSolde() - montant);

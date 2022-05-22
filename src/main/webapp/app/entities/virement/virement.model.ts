@@ -9,7 +9,7 @@ export interface IVirement {
 }
 export interface IOrderVirement {
   monCompte?:number | null;
-  destCompte?:number | null;
+  compteDestinataire?:number | null;
   montant?:number | null;
   label?:string | null;
 }
@@ -26,7 +26,7 @@ export class Virement implements IVirement {
 export class OrderVirement implements IOrderVirement {
   constructor(
     public monCompte?:number | null,
-    public  destCompte?:number | null,
+    public  compteDestinataire?:number | null,
     public montant?:number | null,
     public label?:string | null
   ) {}

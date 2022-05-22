@@ -70,16 +70,16 @@ public class VirementResource {
 /**
      * {@code POST  /virements} : Create a new virement.
      *
-     * @param virementDTO the virementDTO to create.
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new virementDTO, or with status {@code 400 (Bad Request)} if the virement has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PostMapping("/virements/effectuerVirements")
+    @PostMapping("/virements/effectuerVirement")
     public ResponseEntity<VirementDTO> effectuerVirement(@RequestBody VirementCompteACompteDTO compteACompteDTO  ) throws URISyntaxException {
- //       public ResponseEntity<VirementDTO> effectuerVirement(@RequestAttribute(name = "monCompte") Long monCompte ,@RequestAttribute(name = "compteDestinataire") Long compteDestinataire,@RequestAttribute(name = "montant") Long montant,@RequestAttribute(name = "label") String label) throws URISyntaxException {
+  //      public ResponseEntity<VirementDTO> effectuerVirement(@RequestAttribute(name = "monCompte") String monCompte ,@RequestAttribute(name = "compteDestinataire") String compteDestinataire,@RequestAttribute(name = "montant") String montant,@RequestAttribute(name = "label") String label) throws URISyntaxException {
             log.debug("REST request to effecuter Virement :");
-        
-        VirementDTO result = virementService.effectuerVirement(compteACompteDTO.getMonCompte(), compteACompteDTO.getCompteDestinataire(), compteACompteDTO.getMontant(), compteACompteDTO.getLabel());
+
+       VirementDTO result = virementService.effectuerVirement(compteACompteDTO.getMonCompte(), compteACompteDTO.getCompteDestinataire(), compteACompteDTO.getMontant(), compteACompteDTO.getLabel());
+ //       VirementDTO result = virementService.effectuerVirement(Long.parseLong(monCompte), Long.parseLong(compteDestinataire),Long.parseLong( montant), label);
         return ResponseEntity
             .created(new URI("/api/virements/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
