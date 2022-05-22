@@ -5,6 +5,7 @@ import { UserRouteAccessService } from 'app/core/auth/user-route-access.service'
 import { VirementComponent } from '../list/virement.component';
 import { VirementDetailComponent } from '../detail/virement-detail.component';
 import { VirementUpdateComponent } from '../update/virement-update.component';
+import { EffectuerVirementComponent } from '../effectuer-virement/effectuer-virement.component';
 import { VirementRoutingResolveService } from './virement-routing-resolve.service';
 
 const virementRoute: Routes = [
@@ -37,10 +38,18 @@ const virementRoute: Routes = [
     },
     canActivate: [UserRouteAccessService],
   },
+
+  {
+    path: 'effectuerVirement',
+    component: EffectuerVirementComponent,
+    canActivate: [UserRouteAccessService],
+  },
 ];
+
 
 @NgModule({
   imports: [RouterModule.forChild(virementRoute)],
   exports: [RouterModule],
 })
 export class VirementRoutingModule {}
+
