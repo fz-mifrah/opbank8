@@ -20,8 +20,8 @@ export class VirementService {
     return this.http.post<IVirement>(this.resourceUrl, virement, { observe: 'response' });
   }
 
-  effectuerVirements(orderVirement: IOrderVirement): Observable<EntityResponseType> {
-    return this.http.post<IVirement>(this.resourceUrl+'/effectuerVirements', orderVirement, { observe: 'response' });
+  effectuerVirement(orderVirement: IOrderVirement): Observable<EntityResponseType> {
+    return this.http.post<IVirement>(this.resourceUrl+'/effectuerVirement', orderVirement, { observe: 'response' });
   }
 
   update(virement: IVirement): Observable<EntityResponseType> {
