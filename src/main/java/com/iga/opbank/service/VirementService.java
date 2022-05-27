@@ -73,9 +73,10 @@ public interface VirementService {
 
     /**
      * Effectuer un virement depuis mon compte vers un compte destinataire
-     * @return 
+     * @return
      *
-     * 
+     *
      */
     VirementDTO effectuerVirement(Long monCompte,Long compteDestinataire,Long montant,String label);
+
 }

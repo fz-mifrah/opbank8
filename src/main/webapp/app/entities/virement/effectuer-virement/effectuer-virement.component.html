@@ -295,13 +295,24 @@ overflow-y: auto;
 
           <li>
 
-            <button  class="button" type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()" ><span jhiTranslate="entity.action.cancel">Cancel</span></button>
+            <button  class="button" type="button"
+                     id="cancel-save"
+                     data-cy="entityCreateCancelButton"
+                     class="btn btn-secondary" (click)="previousState()" >
+              <span jhiTranslate="entity.action.cancel">Cancel</span>
+            </button>
+
             <button  class="button" type="submit"
                      id="save-entity"
                      data-cy="entityCreateSaveButton"
                      [disabled]="editForm.invalid || isSaving"
-                     class="btn btn-primary"><span jhiTranslate="entity.action.save">Save</span></button>
+                     class="btn btn-primary"
+            ><span jhiTranslate="entity.action.save">Save</span>
+            </button>
+
+
           </li>
+
 
         </ul>
       </form>

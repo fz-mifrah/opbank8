@@ -2,10 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 import { IVirement, Virement, IOrderVirement , OrderVirement } from '../virement.model';
 import { VirementService } from '../service/virement.service';
+import { CompteService } from '../../compte/service/compte.service';
+import { ICompte , Compte } from '../../compte/compte.model';
+
+import { Observable, of, EMPTY } from 'rxjs';
 
 @Component({
   selector: 'jhi-effectuer-virement',
@@ -14,33 +17,39 @@ import { VirementService } from '../service/virement.service';
 export class EffectuerVirementComponent implements OnInit {
   isSaving = false;
 
+  currentCompte: ICompte | null = null;
+
   editForm = this.fb.group({
-    monCompte: ['21780446122851'],
+    monCompte: [],
     compteDestinataire: [],
     montant: [],
     label:  [],
-
   });
+
 
   constructor(
     protected virementService: VirementService,
+    protected compteService: CompteService,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
-return;
-  }
+
+ this.compteService.currentCompte().subscribe( compte => {this.editForm.patchValue({monCompte: compte.body?.rib});});
+
+return;  }
 
   previousState(): void {
     window.history.back();
   }
 
   save(): void {
+    if (confirm("voulez vous vraiment confirmer votre operation ?")) {
     this.isSaving = true;
     const virement = this.createFromForm();
-     alert(virement);
       this.subscribeToSaveResponse(this.virementService.effectuerVirement(virement));
+      }
   }
 
 
@@ -64,7 +73,6 @@ return;
   }
 
 
-
   protected createFromForm(): IOrderVirement {
     return {
       ...new OrderVirement(),
@@ -72,7 +80,8 @@ return;
       compteDestinataire: this.editForm.get(['compteDestinataire'])!.value,
       montant: this.editForm.get(['montant'])!.value,
       label: this.editForm.get(['label'])!.value
-    };
+    }
 
+   }
   }
-}
+

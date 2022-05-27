@@ -24,7 +24,19 @@ export class CompteRoutingResolveService implements Resolve<ICompte> {
           }
         })
       );
-    }
+    } else if (route['url'].toString() === 'current-compte' ){
+             return this.service.currentCompte().pipe(
+               mergeMap((compte: HttpResponse<Compte>) => {
+                 if (compte.body) {
+                   return of(compte.body);
+                 } else {
+                   this.router.navigate(['404']);
+                   return EMPTY;
+                 }
+               })
+             );
+
+       }
     return of(new Compte());
   }
 }

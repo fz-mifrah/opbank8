@@ -42,6 +42,14 @@ public interface OperationService {
     Page<OperationDTO> findAll(Pageable pageable);
 
     /**
+     * Get all history the operations.
+     *
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    Page<OperationDTO> findAllHistory(Pageable pageable);
+
+    /**
      * Get all the operations with eager load of many-to-many relationships.
      *
      * @param pageable the pagination information.

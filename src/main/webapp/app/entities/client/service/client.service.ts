@@ -46,6 +46,15 @@ export class ClientService {
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
+
+
+  currentClient(): Observable<EntityResponseType> {
+    return this.http
+      .get<IClient>(`${this.resourceUrl}/currentClient`, { observe: 'response' })
+      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  }
+
+
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http

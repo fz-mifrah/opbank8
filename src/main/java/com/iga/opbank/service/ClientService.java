@@ -1,7 +1,9 @@
 package com.iga.opbank.service;
 
 import com.iga.opbank.service.dto.ClientDTO;
+
 import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -63,4 +65,7 @@ public interface ClientService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    Optional<ClientDTO> getCurrentClient();
+
 }

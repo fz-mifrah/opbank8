@@ -7,7 +7,9 @@ import com.iga.opbank.domain.enumeration.TypeOperation;
 import com.iga.opbank.repository.CompteRepository;
 import com.iga.opbank.repository.OperationRepository;
 import com.iga.opbank.repository.VirementRepository;
+import com.iga.opbank.service.CompteService;
 import com.iga.opbank.service.VirementService;
+import com.iga.opbank.service.dto.CompteDTO;
 import com.iga.opbank.service.dto.VirementDTO;
 import com.iga.opbank.service.mapper.VirementMapper;
 import java.util.LinkedList;
@@ -58,11 +60,14 @@ public class VirementServiceImpl implements VirementService {
 
     private final CompteRepository compteRepository;
 
-    public VirementServiceImpl(VirementRepository virementRepository, VirementMapper virementMapper,CompteRepository compteRepository,OperationRepository operationRepository) {
+    private final CompteService compteService;
+
+    public VirementServiceImpl(VirementRepository virementRepository, VirementMapper virementMapper,CompteRepository compteRepository,OperationRepository operationRepository,CompteService compteService) {
         this.virementRepository = virementRepository;
         this.virementMapper = virementMapper;
         this.operationRepository = operationRepository;
         this.compteRepository = compteRepository;
+        this.compteService = compteService;
     }
 
     @Override
@@ -102,6 +107,7 @@ public class VirementServiceImpl implements VirementService {
         log.debug("Request to get all Virements");
         return virementRepository.findAll(pageable).map(virementMapper::toDto);
     }
+
 
     public Page<VirementDTO> findAllWithEagerRelationships(Pageable pageable) {
         return virementRepository.findAllWithEagerRelationships(pageable).map(virementMapper::toDto);
@@ -156,7 +162,7 @@ public class VirementServiceImpl implements VirementService {
             Operation operation = new Operation();
             operation.setCompte(myAccount);
             operation.setDate(LocalDate.now());
-            operation.setEtatOperation(EtatOperation.Cree);
+            operation.setEtatOperation(EtatOperation.Valide);
             operation.setTypeOperatin(TypeOperation.TypeVirement);
             operation.setMontant((double) montant);
             operation.setNumOperation("OPE-" + UUID.randomUUID().toString().substring(0, 6));
@@ -171,7 +177,6 @@ public class VirementServiceImpl implements VirementService {
             myAccount.addOperation(operation);
 
             compteRepository.save(myAccount);
-            compteRepository.save(destAccount);
             return virementMapper.toDto(virement);
         }
         return null;

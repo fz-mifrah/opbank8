@@ -175,6 +175,17 @@ public class ClientResource {
     }
 
     /**
+     *
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the clientDTO, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/clients/currentClient")
+    public ResponseEntity<ClientDTO> getCurrentClient() {
+        log.debug("REST request to get current Client : ");
+        Optional<ClientDTO> clientDTO = clientService.getCurrentClient();
+        return ResponseUtil.wrapOrNotFound(clientDTO);
+    }
+
+    /**
      * {@code DELETE  /clients/:id} : delete the "id" client.
      *
      * @param id the id of the clientDTO to delete.

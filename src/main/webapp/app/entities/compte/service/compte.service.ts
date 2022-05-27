@@ -46,6 +46,13 @@ export class CompteService {
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
+
+  currentCompte(): Observable<EntityResponseType> {
+    return this.http
+      .get<ICompte>(`${this.resourceUrl}/currentCompte`, { observe: 'response' })
+      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  }
+
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http

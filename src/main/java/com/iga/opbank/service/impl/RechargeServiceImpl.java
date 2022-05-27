@@ -1,13 +1,27 @@
 package com.iga.opbank.service.impl;
 
+import com.iga.opbank.domain.Compte;
+import com.iga.opbank.domain.Operation;
 import com.iga.opbank.domain.Recharge;
+import com.iga.opbank.domain.Virement;
+import com.iga.opbank.domain.enumeration.EtatOperation;
+import com.iga.opbank.domain.enumeration.TypeOperation;
+import com.iga.opbank.repository.CompteRepository;
+import com.iga.opbank.repository.OperationRepository;
 import com.iga.opbank.repository.RechargeRepository;
+import com.iga.opbank.service.CompteService;
+import com.iga.opbank.service.OperationService;
 import com.iga.opbank.service.RechargeService;
+import com.iga.opbank.service.dto.CompteDTO;
+import com.iga.opbank.service.dto.OperationDTO;
 import com.iga.opbank.service.dto.RechargeDTO;
 import com.iga.opbank.service.mapper.RechargeMapper;
+
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
@@ -30,9 +44,22 @@ public class RechargeServiceImpl implements RechargeService {
 
     private final RechargeMapper rechargeMapper;
 
-    public RechargeServiceImpl(RechargeRepository rechargeRepository, RechargeMapper rechargeMapper) {
+    private final OperationRepository operationRepository;
+
+    private final OperationService operationService;
+
+    private final CompteRepository compteRepository;
+
+    private final CompteService compteService;
+
+
+    public RechargeServiceImpl(RechargeRepository rechargeRepository, RechargeMapper rechargeMapper, OperationRepository operationRepository, CompteRepository compteRepository, CompteService compteService,OperationService operationService) {
         this.rechargeRepository = rechargeRepository;
         this.rechargeMapper = rechargeMapper;
+        this.operationRepository = operationRepository;
+        this.operationService = operationService;
+        this.compteRepository = compteRepository;
+        this.compteService = compteService;
     }
 
     @Override
@@ -102,5 +129,30 @@ public class RechargeServiceImpl implements RechargeService {
     public void delete(Long id) {
         log.debug("Request to delete Recharge : {}", id);
         rechargeRepository.deleteById(id);
+    }
+
+    @Override
+    public RechargeDTO effectuerRecharge(RechargeDTO rechargeDTO, Long montantRecharge) {
+        log.debug("Request to create a new Recharge my my numtel: {}", rechargeDTO.getNumTel());
+
+        Optional<CompteDTO> currentCompte = compteService.getCurrentCompte();
+        CompteDTO myAccount  = currentCompte.get();
+         if (myAccount.getSolde() > montantRecharge) {
+            myAccount.setSolde(myAccount.getSolde() - montantRecharge);
+            OperationDTO operation = new OperationDTO();
+            operation.setCompte(myAccount);
+            operation.setDate(LocalDate.now());
+            operation.setEtatOperation(EtatOperation.Valide);
+            operation.setTypeOperatin(TypeOperation.TypeRecharge);
+            operation.setMontant((double) montantRecharge);
+            operation.setNumOperation("RECHARGE-" + UUID.randomUUID().toString().substring(0, 6));
+            RechargeDTO recharge = save(rechargeDTO);
+            operation.setRecharge(recharge);
+            operation.setCompte(myAccount);
+            operationService.save(operation);
+            compteService.save(myAccount);
+            return recharge;
+         }
+        return null;
     }
 }

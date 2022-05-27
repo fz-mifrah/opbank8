@@ -24,6 +24,10 @@ export class RechargeService {
     return this.http.put<IRecharge>(`${this.resourceUrl}/${getRechargeIdentifier(recharge) as number}`, recharge, { observe: 'response' });
   }
 
+  effectuerRecharge(recharge: IRecharge,montant : number): Observable<EntityResponseType> {
+    return this.http.post<IRecharge>(`${this.resourceUrl}/effectuerRecharge/${montant}`, recharge, { observe: 'response' });
+  }
+
   partialUpdate(recharge: IRecharge): Observable<EntityResponseType> {
     return this.http.patch<IRecharge>(`${this.resourceUrl}/${getRechargeIdentifier(recharge) as number}`, recharge, {
       observe: 'response',

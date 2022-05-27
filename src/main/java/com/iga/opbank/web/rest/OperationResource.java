@@ -162,6 +162,30 @@ public class OperationResource {
     }
 
     /**
+     * {@code GET  /operations} : get all the operations.
+     *
+     * @param pageable the pagination information.
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of operations in body.
+     */
+    @GetMapping("/operations/operationHistory")
+    public ResponseEntity<List<OperationDTO>> getAllOperationsHistory(
+        @org.springdoc.api.annotations.ParameterObject Pageable pageable,
+        @RequestParam(required = false, defaultValue = "true") boolean eagerload
+    ) {
+        log.debug("REST request to get a page of Operations");
+        Page<OperationDTO> page;
+//        if (eagerload) {
+//            page = operationService.findAllWithEagerRelationships(pageable);
+//        } else
+        {
+            page = operationService.findAllHistory(pageable);
+        }
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
      * {@code GET  /operations/:id} : get the "id" operation.
      *
      * @param id the id of the operationDTO to retrieve.

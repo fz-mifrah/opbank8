@@ -2,7 +2,9 @@ package com.iga.opbank.service.impl;
 
 import com.iga.opbank.domain.Compte;
 import com.iga.opbank.repository.CompteRepository;
+import com.iga.opbank.service.ClientService;
 import com.iga.opbank.service.CompteService;
+import com.iga.opbank.service.dto.ClientDTO;
 import com.iga.opbank.service.dto.CompteDTO;
 import com.iga.opbank.service.mapper.CompteMapper;
 import java.util.LinkedList;
@@ -30,9 +32,12 @@ public class CompteServiceImpl implements CompteService {
 
     private final CompteMapper compteMapper;
 
-    public CompteServiceImpl(CompteRepository compteRepository, CompteMapper compteMapper) {
+    private final ClientService clientService;
+
+    public CompteServiceImpl(CompteRepository compteRepository, CompteMapper compteMapper,ClientService clientService) {
         this.compteRepository = compteRepository;
         this.compteMapper = compteMapper;
+        this.clientService = clientService;
     }
 
     @Override
@@ -102,5 +107,12 @@ public class CompteServiceImpl implements CompteService {
     public void delete(Long id) {
         log.debug("Request to delete Compte : {}", id);
         compteRepository.deleteById(id);
+    }
+
+    @Override
+    public Optional<CompteDTO> getCurrentCompte() {
+        Optional<ClientDTO> currentClient = clientService.getCurrentClient();
+        Optional<CompteDTO> currentCompte = findOne(currentClient.get().getCompte().getId());
+        return currentCompte;
     }
 }

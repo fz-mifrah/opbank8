@@ -1,5 +1,6 @@
 package com.iga.opbank.repository;
 
+import com.iga.opbank.domain.Compte;
 import com.iga.opbank.domain.Operation;
 import java.util.List;
 import java.util.Optional;
@@ -37,4 +38,6 @@ public interface OperationRepository extends JpaRepository<Operation, Long> {
 
     @Query("select operation from Operation operation left join fetch operation.compte where operation.id =:id")
     Optional<Operation> findOneWithToOneRelationships(@Param("id") Long id);
+
+    Page<Operation> findAllByCompte(Compte compte,Pageable pageable);
 }

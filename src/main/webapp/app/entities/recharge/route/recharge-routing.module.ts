@@ -5,6 +5,7 @@ import { UserRouteAccessService } from 'app/core/auth/user-route-access.service'
 import { RechargeComponent } from '../list/recharge.component';
 import { RechargeDetailComponent } from '../detail/recharge-detail.component';
 import { RechargeUpdateComponent } from '../update/recharge-update.component';
+import { EffectuerRechargeComponent } from '../effectuer-recharge/effectuer-recharge.component';
 import { RechargeRoutingResolveService } from './recharge-routing-resolve.service';
 
 const rechargeRoute: Routes = [
@@ -22,13 +23,21 @@ const rechargeRoute: Routes = [
     canActivate: [UserRouteAccessService],
   },
   {
-    path: 'new',
-    component: RechargeUpdateComponent,
-    resolve: {
-      recharge: RechargeRoutingResolveService,
+      path: 'new',
+      component: RechargeUpdateComponent,
+      resolve: {
+        recharge: RechargeRoutingResolveService,
+      },
+      canActivate: [UserRouteAccessService],
     },
-    canActivate: [UserRouteAccessService],
-  },
+    {
+        path: 'effectuerRecharge',
+        component: EffectuerRechargeComponent,
+        resolve: {
+          recharge: RechargeRoutingResolveService,
+        },
+        canActivate: [UserRouteAccessService],
+      },
   {
     path: ':id/edit',
     component: RechargeUpdateComponent,

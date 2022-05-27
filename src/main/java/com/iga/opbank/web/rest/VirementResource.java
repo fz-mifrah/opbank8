@@ -184,6 +184,32 @@ public class VirementResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+
+    /**
+     * {@code GET  /virements} : get all the virements.
+     *
+     * @param pageable the pagination information.
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
+     * @param filter the filter of the request.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of virements in body.
+     */
+//    @GetMapping("/virement-history")
+//    public ResponseEntity<List<VirementDTO>> getVirementHistory(
+//        @org.springdoc.api.annotations.ParameterObject Pageable pageable,
+//        @RequestParam(required = false) String filter,
+//        @RequestParam(required = false, defaultValue = "true") boolean eagerload
+//    ) {
+//        if ("operation-is-null".equals(filter)) {
+//            log.debug("REST request to get all Virements where operation is null");
+//            return new ResponseEntity<>(virementService.findAllWhereOperationIsNull(), HttpStatus.OK);
+//        }
+//        log.debug("REST request to get a page of Virements");
+//        Page<VirementDTO> page;
+//            page = virementService.findAllHistory(pageable);
+//        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+//        return ResponseEntity.ok().headers(headers).body(page.getContent());
+//    }
+
     /**
      * {@code GET  /virements/:id} : get the "id" virement.
      *
