@@ -1,0 +1,53 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="compte">
+      <h2 data-cy="compteDetailsHeading"><span jhiTranslate="opbankApp.compte.detail.title">Compte</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ compte.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="opbankApp.compte.rib">Rib</span></dt>
+        <dd>
+          <span>{{ compte.rib }}</span>
+        </dd>
+        <dt><span jhiTranslate="opbankApp.compte.dateOuverture">Date Ouverture</span></dt>
+        <dd>
+          <span>{{ compte.dateOuverture | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="opbankApp.compte.code">Code</span></dt>
+        <dd>
+          <span>{{ compte.code }}</span>
+        </dd>
+        <dt><span jhiTranslate="opbankApp.compte.solde">Solde</span></dt>
+        <dd>
+          <span>{{ compte.solde }}</span>
+        </dd>
+        <dt><span jhiTranslate="opbankApp.compte.carteBancaire">Carte Bancaire</span></dt>
+        <dd>
+          <div *ngIf="compte.carteBancaire">
+            <a [routerLink]="['/carte-bancaire', compte.carteBancaire?.id, 'view']">{{ compte.carteBancaire?.numCarte }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="opbankApp.compte.banque">Banque</span></dt>
+        <dd>
+          <div *ngIf="compte.banque">
+            <a [routerLink]="['/banque', compte.banque?.id, 'view']">{{ compte.banque?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+    </div>
+  </div>
+</div>

@@ -1,8 +1,11 @@
 package com.iga.opbank.service.impl;
 
 import com.iga.opbank.domain.Client;
+import com.iga.opbank.domain.User;
 import com.iga.opbank.repository.ClientRepository;
+import com.iga.opbank.security.SecurityUtils;
 import com.iga.opbank.service.ClientService;
+import com.iga.opbank.service.UserService;
 import com.iga.opbank.service.dto.ClientDTO;
 import com.iga.opbank.service.mapper.ClientMapper;
 import java.util.Optional;
@@ -26,9 +29,12 @@ public class ClientServiceImpl implements ClientService {
 
     private final ClientMapper clientMapper;
 
-    public ClientServiceImpl(ClientRepository clientRepository, ClientMapper clientMapper) {
+    private final UserService userService;
+
+    public ClientServiceImpl(ClientRepository clientRepository, ClientMapper clientMapper,UserService userService) {
         this.clientRepository = clientRepository;
         this.clientMapper = clientMapper;
+        this.userService = userService;
     }
 
     @Override
@@ -77,6 +83,17 @@ public class ClientServiceImpl implements ClientService {
     @Transactional(readOnly = true)
     public Optional<ClientDTO> findOne(Long id) {
         log.debug("Request to get Client : {}", id);
+        return clientRepository.findOneWithEagerRelationships(id).map(clientMapper::toDto);
+    }
+
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<ClientDTO> getCurrentClient() {
+        log.debug("Request to get current Client ");
+        Optional<User> userWithAuthorities = userService.getUserWithAuthorities();
+        User user = userWithAuthorities.get();
+        Long id = user.getId();
         return clientRepository.findOneWithEagerRelationships(id).map(clientMapper::toDto);
     }
 

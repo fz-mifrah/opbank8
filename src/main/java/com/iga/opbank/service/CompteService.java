@@ -1,5 +1,6 @@
 package com.iga.opbank.service;
 
+import com.iga.opbank.service.dto.ClientDTO;
 import com.iga.opbank.service.dto.CompteDTO;
 import java.util.List;
 import java.util.Optional;
@@ -70,4 +71,7 @@ public interface CompteService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    Optional<CompteDTO> getCurrentCompte();
+
 }

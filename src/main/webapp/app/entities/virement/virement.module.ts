@@ -7,9 +7,11 @@ import { EffectuerVirementComponent } from './effectuer-virement/effectuer-virem
 import { VirementDeleteDialogComponent } from './delete/virement-delete-dialog.component';
 import { VirementRoutingModule } from './route/virement-routing.module';
 
+
+
 @NgModule({
   imports: [SharedModule, VirementRoutingModule],
-  declarations: [VirementComponent, VirementDetailComponent, VirementUpdateComponent, VirementDeleteDialogComponent,EffectuerVirementComponent],
+  declarations: [VirementComponent, VirementDetailComponent, VirementUpdateComponent, VirementDeleteDialogComponent, EffectuerVirementComponent],
   entryComponents: [VirementDeleteDialogComponent],
 })
 export class VirementModule {}

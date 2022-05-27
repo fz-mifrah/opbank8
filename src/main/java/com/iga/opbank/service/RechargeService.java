@@ -3,6 +3,7 @@ package com.iga.opbank.service;
 import com.iga.opbank.service.dto.RechargeDTO;
 import java.util.List;
 import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -70,4 +71,13 @@ public interface RechargeService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    /**
+     * Effectuer un recharge depuis mon compte .
+     *
+     *
+     *
+     * @return
+     */
+    RechargeDTO effectuerRecharge(RechargeDTO rechargeDTO,Long montantRecharge);
 }

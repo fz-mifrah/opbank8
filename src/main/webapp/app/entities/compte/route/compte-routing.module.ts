@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { UserRouteAccessService } from 'app/core/auth/user-route-access.service';
 import { CompteComponent } from '../list/compte.component';
 import { CompteDetailComponent } from '../detail/compte-detail.component';
+import { CurrentCompteComponent } from '../current-compte/current-compte.component';
 import { CompteUpdateComponent } from '../update/compte-update.component';
 import { CompteRoutingResolveService } from './compte-routing-resolve.service';
 
@@ -19,6 +20,14 @@ const compteRoute: Routes = [
   {
     path: ':id/view',
     component: CompteDetailComponent,
+    resolve: {
+      compte: CompteRoutingResolveService,
+    },
+    canActivate: [UserRouteAccessService],
+  },
+  {
+    path: 'current-compte',
+    component: CurrentCompteComponent,
     resolve: {
       compte: CompteRoutingResolveService,
     },

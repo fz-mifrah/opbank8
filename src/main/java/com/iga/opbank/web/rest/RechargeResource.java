@@ -9,7 +9,6 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.StreamSupport;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
@@ -63,6 +62,24 @@ public class RechargeResource {
             throw new BadRequestAlertException("A new recharge cannot already have an ID", ENTITY_NAME, "idexists");
         }
         RechargeDTO result = rechargeService.save(rechargeDTO);
+        return ResponseEntity
+            .created(new URI("/api/recharges/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+            .body(result);
+    }
+
+    /**
+     * {@code POST  /recharges} : Create a new recharge.
+     *
+     * @param rechargeOpDTO the rechargeDTO to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new rechargeDTO, or with status {@code 400 (Bad Request)} if the recharge has already an ID.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     */
+    @PostMapping("/recharges/effectuerRecharge/{montantRecharge}")
+    public ResponseEntity<RechargeDTO> effectuerRecharge(@Valid @RequestBody RechargeDTO rechargeOpDTO,@PathVariable("montantRecharge") long montantRecharge) throws URISyntaxException {
+        log.debug("REST request to save Recharge : {}", rechargeOpDTO);
+
+        RechargeDTO result = rechargeService.effectuerRecharge(rechargeOpDTO,montantRecharge);
         return ResponseEntity
             .created(new URI("/api/recharges/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))

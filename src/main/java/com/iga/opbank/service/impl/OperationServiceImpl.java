@@ -1,8 +1,12 @@
 package com.iga.opbank.service.impl;
 
+import com.iga.opbank.domain.Compte;
 import com.iga.opbank.domain.Operation;
+import com.iga.opbank.repository.CompteRepository;
 import com.iga.opbank.repository.OperationRepository;
+import com.iga.opbank.service.CompteService;
 import com.iga.opbank.service.OperationService;
+import com.iga.opbank.service.dto.CompteDTO;
 import com.iga.opbank.service.dto.OperationDTO;
 import com.iga.opbank.service.mapper.OperationMapper;
 import java.util.Optional;
@@ -26,9 +30,16 @@ public class OperationServiceImpl implements OperationService {
 
     private final OperationMapper operationMapper;
 
-    public OperationServiceImpl(OperationRepository operationRepository, OperationMapper operationMapper) {
+    private final CompteService compteService;
+
+    private final CompteRepository compteRepository;
+
+
+    public OperationServiceImpl(OperationRepository operationRepository, OperationMapper operationMapper,CompteService compteService,CompteRepository compteRepository) {
         this.operationRepository = operationRepository;
         this.operationMapper = operationMapper;
+        this.compteService = compteService;
+        this.compteRepository = compteRepository;
     }
 
     @Override
@@ -67,6 +78,16 @@ public class OperationServiceImpl implements OperationService {
     public Page<OperationDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Operations");
         return operationRepository.findAll(pageable).map(operationMapper::toDto);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<OperationDTO> findAllHistory(Pageable pageable) {
+        log.debug("Request to get all Operations history");
+        Optional<CompteDTO> currentCompte = compteService.getCurrentCompte();
+        CompteDTO myAccount  = currentCompte.get();
+        Compte compte = compteRepository.findById(myAccount.getId()).get();
+        return operationRepository.findAllByCompte(compte,pageable).map(operationMapper::toDto);
     }
 
     public Page<OperationDTO> findAllWithEagerRelationships(Pageable pageable) {
