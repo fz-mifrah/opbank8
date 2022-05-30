@@ -3,11 +3,6 @@
     <span jhiTranslate="opbankApp.operation.home.title">Operations</span>
 
     <div class="d-flex justify-content-end">
-      <button class="btn btn-info me-2" (click)="loadPage()" [disabled]="isLoading">
-        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="opbankApp.operation.home.refreshListLabel">Refresh List</span>
-      </button>
-
     </div>
   </h2>
 
@@ -54,7 +49,10 @@
           <td>{{ operation.date | formatMediumDate }}</td>
           <td jhiTranslate="{{ 'opbankApp.TypeOperation.' + operation.typeOperatin }}">{{ operation.typeOperatin }}</td>
           <td jhiTranslate="{{ 'opbankApp.EtatOperation.' + operation.etatOperation }}">{{ operation.etatOperation }}</td>
-          <td>{{ operation.montant }}</td>
+          <td>
+            <div *ngIf="operation.montant && operation.montant > 0" style="color:green;"> {{ operation.montant }}</div>
+            <div *ngIf="operation.montant && !(operation.montant > 0)"  style="color:red;"> {{ operation.montant }}</div>
+          </td>
           <td>
             <div *ngIf="operation.virement">
               <a [routerLink]="['/virement', operation.virement?.id, 'view']">{{ operation.virement?.id }}</a>

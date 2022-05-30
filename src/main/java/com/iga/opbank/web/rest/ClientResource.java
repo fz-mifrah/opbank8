@@ -174,6 +174,8 @@ public class ClientResource {
         return ResponseUtil.wrapOrNotFound(clientDTO);
     }
 
+
+
     /**
      *
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the clientDTO, or with status {@code 404 (Not Found)}.

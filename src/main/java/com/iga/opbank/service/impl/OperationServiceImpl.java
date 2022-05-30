@@ -9,10 +9,13 @@ import com.iga.opbank.service.OperationService;
 import com.iga.opbank.service.dto.CompteDTO;
 import com.iga.opbank.service.dto.OperationDTO;
 import com.iga.opbank.service.mapper.OperationMapper;
+
+import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -87,7 +90,17 @@ public class OperationServiceImpl implements OperationService {
         Optional<CompteDTO> currentCompte = compteService.getCurrentCompte();
         CompteDTO myAccount  = currentCompte.get();
         Compte compte = compteRepository.findById(myAccount.getId()).get();
-        return operationRepository.findAllByCompte(compte,pageable).map(operationMapper::toDto);
+
+        List<Operation> historyCompte = operationRepository.findAllHistoryByCompte(compte);
+
+        final int start = (int)pageable.getOffset();
+        final int end = Math.min((start + pageable.getPageSize()), historyCompte.size());
+        final Page<Operation> page = new PageImpl<>(historyCompte.subList(start, end), pageable, historyCompte.size());
+page.stream().forEach(e -> {if(e.getCompte().getId().equals(myAccount.getId())){e.setMontant(0-e.getMontant());}});
+
+
+        return page.map(operationMapper::toDto);
+        //return operationRepository.findAllByCompte(compte,pageable).map(operationMapper::toDto);
     }
 
     public Page<OperationDTO> findAllWithEagerRelationships(Pageable pageable) {

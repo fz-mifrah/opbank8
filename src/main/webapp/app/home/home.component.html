@@ -40,79 +40,47 @@
     *jhiHasAnyAuthority="'ROLE_CLIENT'"
     class="col-md-9">
 
-    <h3 class="display-4"><span id="titl-index">Bienvenue dans l'interface d'Utilisateur du MMSBank !</span></h3>
+    <h3 class="display-4"><span id="titl-index">Bienvenue  {{ myClient?.nom }}, {{ myClient?.prenom }} dans l'interface d'Utilisateur du MMSBank !</span></h3>
 
-    <div class="wrapper">
-      <div class="container">
-        <div class="row">
-
-          <div class="span9">
-            <div class="content">
-              <div class="btn-controls">
-                <div class="btn-box-row row-fluid">
-                  <a href="#" class="btn-box big span4"> <i class="icon-user"></i><b>65%</b>
-                    <p class="text-muted">
-                      Compte</p>
-                  </a><a href="#" class="btn-box big span4"><i class=" icon-random"></i><b>15</b>
-                  <p class="text-muted">
-                    Virements</p>
-                </a>
-
-                  <a href="#" class="btn-box big span4"><i class="icon-money"></i><b>15,152</b>
-                    <p class="text-muted">
-                      Solde</p>
-                  </a>
-                </div>
-                <img src="./Carte.jpg" style="width:30%;height:20%;padding-left: 35%;"/>
-
-              </div>
-              <!--/#btn-controls-->
-
-              <!--/.module-->
+    {{clientStringified}}
 
 
-            </div>
-            <br/>
+    <table >
+      <tr>
+        <td>
+  Nom :
+        </td>
+<td>
+ {{ myClient?.nom }}
+</td>
+      </tr>
 
-            <div class="module">
-              <div class="module-head">
-                <h3>
-                  DataTables</h3>
-              </div>
-              <div class="module-body table">
-                <table cellpadding="0" cellspacing="0" border="0" class=""
-                       width="100%">
-                  <thead>
-                  <tr>
-                    <th>
-                      Libelle
-                    </th>
-                    <th>
-                      Date D'operation
-                    </th>
-                    <th>
+      <tr>
+        <td>
+          Prenom :
+        </td>
+        <td>
+          {{ myClient?.prenom }}
 
-                    </th>
-                    <th>
-                      Type D'operation
-                    </th>
-                    <th>
-                      Montant
-                    </th>
-                  </tr>
-                  </thead>
-                  <tbody>
+        </td>
+      </tr>
 
-                </table>
-              </div>
-            </div>
-            <!--/.module-->
-          </div>
-          <!--/.content-->
-        </div>
-        <!--/.span9-->
-      </div>
-    </div>
+
+
+      <tr>
+        <td>
+          adress :
+        </td>
+        <td>
+          {{ myClient?.adress }}
+
+        </td>
+      </tr>
+
+
+
+    </table>
+
     <!--/.container-->
   </div>
   <!--/.wrapper-->

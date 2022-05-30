@@ -40,4 +40,9 @@ public interface OperationRepository extends JpaRepository<Operation, Long> {
     Optional<Operation> findOneWithToOneRelationships(@Param("id") Long id);
 
     Page<Operation> findAllByCompte(Compte compte,Pageable pageable);
+
+
+    @Query("select operation from Operation operation left join operation.virement where (operation.compte = :compte )  or operation.virement.compte = :compte order by date desc")
+    List<Operation> findAllHistoryByCompte(@Param("compte") Compte compte);
+
 }

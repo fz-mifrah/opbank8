@@ -1,5 +1,6 @@
 package com.iga.opbank.repository;
 
+import com.iga.opbank.domain.Compte;
 import com.iga.opbank.domain.Virement;
 import java.util.List;
 import java.util.Optional;
@@ -37,4 +38,7 @@ public interface VirementRepository extends JpaRepository<Virement, Long> {
 
     @Query("select virement from Virement virement left join fetch virement.compte where virement.id =:id")
     Optional<Virement> findOneWithToOneRelationships(@Param("id") Long id);
+
+
+    List<Virement> findAllByCompte(Compte compte);
 }
