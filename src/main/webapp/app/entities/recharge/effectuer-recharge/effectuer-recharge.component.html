@@ -15,7 +15,7 @@
 
         <div class="row mb-3">
           <label class="form-label" jhiTranslate="opbankApp.recharge.numTel" for="field_numTel">Num Tel</label>
-          <input type="number" class="form-control" name="numTel" id="field_numTel" data-cy="numTel" formControlName="numTel" />
+          <input type="text" class="form-control" name="numTel" id="field_numTel" data-cy="numTel" formControlName="numTel" />
           <div *ngIf="editForm.get('numTel')!.invalid && (editForm.get('numTel')!.dirty || editForm.get('numTel')!.touched)">
             <small class="form-text text-danger" *ngIf="editForm.get('numTel')?.errors?.required" jhiTranslate="entity.validation.required">
               This field is required.

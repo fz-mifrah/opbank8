@@ -48,8 +48,9 @@ export class EffectuerRechargeComponent implements OnInit {
   save(): void {
     this.isSaving = true;
     const recharge = this.createFromForm();
-    alert(this.editForm.get(['montant'])!.value);
+    if(confirm('Confirmez vous effectuer cette recharge  ? ')){
       this.subscribeToSaveResponse(this.rechargeService.effectuerRecharge(recharge,this.editForm.get(['montant'])!.value));
+    }
     }
 
   trackOperateurById(_index: number, item: IOperateur): number {

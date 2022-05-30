@@ -13,6 +13,7 @@ import { Observable, of, EMPTY } from 'rxjs';
 @Component({
   selector: 'jhi-effectuer-virement',
   templateUrl: './effectuer-virement.component.html',
+  styleUrls: ['./effectuer-virement.component.scss'],
 })
 export class EffectuerVirementComponent implements OnInit {
   isSaving = false;
