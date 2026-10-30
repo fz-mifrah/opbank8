@@ -1,260 +1,264 @@
-# opbank
+# OpBank — Application de gestion des opérations bancaires
 
-This application was generated using JHipster 7.8.1, you can find documentation and help at [https://www.jhipster.tech](https://www.jhipster.tech).
+![Java](https://img.shields.io/badge/Java-11-007396?logo=openjdk&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-2.6.6-6DB33F?logo=springboot&logoColor=white)
+![Angular](https://img.shields.io/badge/Angular-13-DD0031?logo=angular&logoColor=white)
+![JHipster](https://img.shields.io/badge/JHipster-7.8.1-3E8ACC?logo=jhipster&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-prod-4169E1?logo=postgresql&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-ready-2496ED?logo=docker&logoColor=white)
 
-## Project Structure
+OpBank est une application web de **banque en ligne** qui permet à un client de consulter son compte, d'effectuer des **virements de compte à compte**, de **recharger une ligne téléphonique** et de suivre l'**historique de ses opérations**. Un espace administrateur permet de gérer les clients, comptes, banques, cartes et opérations.
 
-Node is required for generation and recommended for development. `package.json` is always generated for a better development experience with prettier, commit hooks, scripts and so on.
+Le projet est une application monolithique générée avec **JHipster** (Spring Boot + Angular) à partir d'un modèle JDL, puis enrichie avec la logique métier bancaire.
 
-In the project root, JHipster generates configuration files for tools like git, prettier, eslint, husk, and others that are well known and you can find references in the web.
+---
 
-`/src/*` structure follows default Java structure.
+## Sommaire
 
-- `.yo-rc.json` - Yeoman configuration file
-  JHipster configuration is stored in this file at `generator-jhipster` key. You may find `generator-jhipster-*` for specific blueprints configuration.
-- `.yo-resolve` (optional) - Yeoman conflict resolver
-  Allows to use a specific action when conflicts are found skipping prompts for files that matches a pattern. Each line should match `[pattern] [action]` with pattern been a [Minimatch](https://github.com/isaacs/minimatch#minimatch) pattern and action been one of skip (default if ommited) or force. Lines starting with `#` are considered comments and are ignored.
-- `.jhipster/*.json` - JHipster entity configuration files
+- [Fonctionnalités](#fonctionnalités)
+- [Architecture](#architecture)
+- [Modèle de données](#modèle-de-données)
+- [API métier](#api-métier)
+- [Stack technique](#stack-technique)
+- [Démarrage rapide](#démarrage-rapide)
+- [Tests et qualité](#tests-et-qualité)
+- [Déploiement avec Docker](#déploiement-avec-docker)
+- [Structure du projet](#structure-du-projet)
+- [Auteure](#auteure)
 
-- `npmw` - wrapper to use locally installed npm.
-  JHipster installs Node and npm locally using the build tool by default. This wrapper makes sure npm is installed locally and uses it avoiding some differences different versions can cause. By using `./npmw` instead of the traditional `npm` you can configure a Node-less environment to develop or test your application.
-- `/src/main/docker` - Docker configurations for the application and services that the application depends on
+---
 
-## Development
+## Fonctionnalités
 
-Before you can build this project, you must install and configure the following dependencies on your machine:
+### Espace client
+- **Authentification JWT** : connexion sécurisée, gestion du compte utilisateur.
+- **Mon compte** : consultation du compte courant (RIB, solde, date d'ouverture, carte bancaire).
+- **Virement compte à compte** : transfert d'un montant vers un compte destinataire identifié par son RIB, avec libellé. Le solde est vérifié avant l'opération, puis les deux comptes sont mis à jour.
+- **Recharge téléphonique** : recharge d'un numéro auprès d'un opérateur, débitée du compte courant.
+- **Historique des opérations** : liste des opérations du client connecté (type, état, montant, date).
 
-1. [Node.js][]: We use Node to run a development web server and build the project.
-   Depending on your system, you can install Node either from source or as a pre-packaged bundle.
+### Espace administrateur
+- CRUD complet sur toutes les entités : clients, comptes, banques, cartes bancaires, opérations, virements, transferts, recharges, opérateurs, paiements de factures, services.
+- Gestion des utilisateurs et des rôles.
+- Monitoring : métriques, santé, configuration, logs (outils d'administration JHipster).
 
-After installing Node, you should be able to run the following command to install development tools.
-You will only need to run this command when dependencies change in [package.json](package.json).
+### Transverse
+- Interface multilingue : **anglais**, **roumain**, **russe**.
+- Pagination et défilement infini sur les listes.
+- Cache Hibernate de second niveau avec **Hazelcast**.
+
+---
+
+## Architecture
 
 ```
+┌──────────────────────────┐        HTTP / JSON (JWT)        ┌──────────────────────────────┐
+│     Frontend Angular     │  ─────────────────────────────▶ │     Backend Spring Boot      │
+│  - Espace client         │                                 │  web/rest   (contrôleurs)    │
+│  - Espace admin          │ ◀───────────────────────────── │  service    (logique métier)  │
+│  - i18n (en, ro, ru)     │                                 │  repository (Spring Data JPA)│
+└──────────────────────────┘                                 └───────────────┬──────────────┘
+                                                                             │ JPA / Liquibase
+                                                                ┌────────────▼────────────┐
+                                                                │ H2 (dev) / PostgreSQL   │
+                                                                │ + cache Hazelcast       │
+                                                                └─────────────────────────┘
+```
+
+Le backend suit une architecture en couches : **Resource → Service (interface + implémentation) → Repository**, avec des **DTO** et des mappers **MapStruct** entre les entités et l'API.
+
+---
+
+## Modèle de données
+
+Le modèle complet est décrit dans [`opbank.jh`](opbank.jh) (JDL).
+
+| Entité | Rôle | Champs principaux |
+|---|---|---|
+| `Client` | Titulaire du compte | cin, nom, prénom, adresse, code postal, date de naissance, email |
+| `Compte` | Compte bancaire | rib, date d'ouverture, code, solde |
+| `Banque` | Établissement bancaire | nom, adresse, email |
+| `CarteBancaire` | Carte liée au compte | numéro de carte |
+| `Operation` | Opération générique | numéro, date, type, état, montant |
+| `Virement` | Virement compte à compte | description |
+| `Transfer` | Transfert d'argent | cin, nom et prénom, téléphone |
+| `Recharge` | Recharge téléphonique | numéro de téléphone |
+| `Operateur` | Opérateur télécom | nom |
+| `PaimentFacture` | Paiement de facture | référence |
+| `ServiceClass` | Service facturé | nom du service |
+
+**Énumérations**
+- `TypeOperation` : `TypeVirement`, `TypeTransfer`, `TypeRecharge`, `TypePaimentFacture`
+- `EtatOperation` : `Cree`, `EnCours`, `Valide`, `Annulee`, `Rejetee`
+
+**Relations clés**
+- `Client` 1–1 `Compte` 1–1 `CarteBancaire`
+- `Banque` 1–N `Compte` 1–N `Operation`
+- `Operation` 1–1 `Virement` | `Transfer` | `Recharge` | `PaimentFacture`
+- `Recharge` N–1 `Operateur`, `PaimentFacture` N–1 `ServiceClass`
+
+---
+
+## API métier
+
+En plus des endpoints CRUD générés (`/api/{entité}`), l'application expose :
+
+| Méthode | Endpoint | Description |
+|---|---|---|
+| `GET` | `/api/clients/currentClient` | Client associé à l'utilisateur connecté |
+| `GET` | `/api/comptes/currentCompte` | Compte du client connecté |
+| `GET` | `/api/operations/operationHistory` | Historique des opérations du client connecté |
+| `POST` | `/api/virements/effectuerVirement` | Virement de compte à compte |
+| `POST` | `/api/recharges/effectuerRecharge/{montant}` | Recharge téléphonique |
+
+Exemple de requête de virement :
+
+```http
+POST /api/virements/effectuerVirement
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "monCompte": 1234567890,
+  "compteDestinataire": 9876543210,
+  "montant": 500,
+  "label": "Loyer"
+}
+```
+
+La documentation Swagger complète est accessible dans l'espace administrateur (**Administration → API**).
+
+---
+
+## Stack technique
+
+| Couche | Technologies |
+|---|---|
+| Backend | Java 11, Spring Boot 2.6, Spring Security (JWT), Spring Data JPA, Hibernate, MapStruct, Liquibase |
+| Frontend | Angular 13, TypeScript, Bootstrap, ngx-translate |
+| Base de données | H2 (développement), PostgreSQL (production) |
+| Cache | Hazelcast |
+| Build | Maven, npm, Webpack |
+| Tests | JUnit 5, ArchUnit, Jest, Cypress |
+| Qualité | SonarQube, Checkstyle, ESLint, Prettier, Husky |
+| Conteneurs | Docker, Docker Compose, Jib |
+| Monitoring | Prometheus, Grafana |
+
+---
+
+## Démarrage rapide
+
+### Prérequis
+- Java 11+
+- Node.js 16.14+ et npm
+- (Optionnel) Docker et Docker Compose
+
+### Lancer en développement
+
+```bash
+# 1. Installer les dépendances frontend
 npm install
-```
 
-We use npm scripts and [Angular CLI][] with [Webpack][] as our build system.
-
-If you are using hazelcast as a cache, you will have to launch a cache server.
-To start your cache server, run:
-
-```
-docker-compose -f src/main/docker/hazelcast-management-center.yml up -d
-```
-
-Run the following commands in two separate terminals to create a blissful development experience where your browser
-auto-refreshes when files change on your hard drive.
-
-```
+# 2. Démarrer le backend (port 8080, base H2)
 ./mvnw
+
+# 3. Dans un second terminal, démarrer le frontend avec rechargement à chaud (port 9000)
 npm start
 ```
 
-Npm is also used to manage CSS and JavaScript dependencies used in this application. You can upgrade dependencies by
-specifying a newer version in [package.json](package.json). You can also run `npm update` and `npm install` to manage dependencies.
-Add the `help` flag on any command to see how you can use it. For example, `npm help update`.
+Ouvrir ensuite [http://localhost:8080](http://localhost:8080) (ou `http://localhost:9000` en mode live reload).
 
-The `npm run` command will list all of the scripts available to run for this project.
+Comptes par défaut :
 
-### PWA Support
+| Rôle | Identifiant | Mot de passe |
+|---|---|---|
+| Administrateur | `admin` | `admin` |
+| Utilisateur | `user` | `user` |
 
-JHipster ships with PWA (Progressive Web App) support, and it's turned off by default. One of the main components of a PWA is a service worker.
+---
 
-The service worker initialization code is disabled by default. To enable it, uncomment the following code in `src/main/webapp/app/app.module.ts`:
+## Tests et qualité
 
-```typescript
-ServiceWorkerModule.register('ngsw-worker.js', { enabled: false }),
-```
-
-### Managing dependencies
-
-For example, to add [Leaflet][] library as a runtime dependency of your application, you would run following command:
-
-```
-npm install --save --save-exact leaflet
-```
-
-To benefit from TypeScript type definitions from [DefinitelyTyped][] repository in development, you would run following command:
-
-```
-npm install --save-dev --save-exact @types/leaflet
-```
-
-Then you would import the JS and CSS files specified in library's installation instructions so that [Webpack][] knows about them:
-Edit [src/main/webapp/app/app.module.ts](src/main/webapp/app/app.module.ts) file:
-
-```
-import 'leaflet/dist/leaflet.js';
-```
-
-Edit [src/main/webapp/content/scss/vendor.scss](src/main/webapp/content/scss/vendor.scss) file:
-
-```
-@import '~leaflet/dist/leaflet.css';
-```
-
-Note: There are still a few other things remaining to do for Leaflet that we won't detail here.
-
-For further instructions on how to develop with JHipster, have a look at [Using JHipster in development][].
-
-### Using Angular CLI
-
-You can also use [Angular CLI][] to generate some custom client code.
-
-For example, the following command:
-
-```
-ng generate component my-component
-```
-
-will generate few files:
-
-```
-create src/main/webapp/app/my-component/my-component.component.html
-create src/main/webapp/app/my-component/my-component.component.ts
-update src/main/webapp/app/app.module.ts
-```
-
-### JHipster Control Center
-
-JHipster Control Center can help you manage and control your application(s). You can start a local control center server (accessible on http://localhost:7419) with:
-
-```
-docker-compose -f src/main/docker/jhipster-control-center.yml up
-```
-
-## Building for production
-
-### Packaging as jar
-
-To build the final jar and optimize the opbank application for production, run:
-
-```
-./mvnw -Pprod clean verify
-```
-
-This will concatenate and minify the client CSS and JavaScript files. It will also modify `index.html` so it references these new files.
-To ensure everything worked, run:
-
-```
-java -jar target/*.jar
-```
-
-Then navigate to [http://localhost:8080](http://localhost:8080) in your browser.
-
-Refer to [Using JHipster in production][] for more details.
-
-### Packaging as war
-
-To package your application as a war in order to deploy it to an application server, run:
-
-```
-./mvnw -Pprod,war clean verify
-```
-
-## Testing
-
-To launch your application's tests, run:
-
-```
+```bash
+# Tests backend (unitaires et d'intégration)
 ./mvnw verify
-```
 
-### Client tests
-
-Unit tests are run by [Jest][]. They're located in [src/test/javascript/](src/test/javascript/) and can be run with:
-
-```
+# Tests frontend (Jest)
 npm test
-```
 
-UI end-to-end tests are powered by [Cypress][]. They're located in [src/test/javascript/cypress](src/test/javascript/cypress)
-and can be run by starting Spring Boot in one terminal (`./mvnw spring-boot:run`) and running the tests (`npm run e2e`) in a second one.
+# Tests end-to-end (Cypress)
+npm run e2e
 
-#### Lighthouse audits
-
-You can execute automated [lighthouse audits][https://developers.google.com/web/tools/lighthouse/] with [cypress audits][https://github.com/mfrachet/cypress-audit] by running `npm run e2e:cypress:audits`.
-You should only run the audits when your application is packaged with the production profile.
-The lighthouse report is created in `target/cypress/lhreport.html`
-
-For more information, refer to the [Running tests page][].
-
-### Code quality
-
-Sonar is used to analyse code quality. You can start a local Sonar server (accessible on http://localhost:9001) with:
-
-```
+# Analyse SonarQube
 docker-compose -f src/main/docker/sonar.yml up -d
-```
-
-Note: we have turned off authentication in [src/main/docker/sonar.yml](src/main/docker/sonar.yml) for out of the box experience while trying out SonarQube, for real use cases turn it back on.
-
-You can run a Sonar analysis with using the [sonar-scanner](https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner) or by using the maven plugin.
-
-Then, run a Sonar analysis:
-
-```
 ./mvnw -Pprod clean verify sonar:sonar
 ```
 
-If you need to re-run the Sonar phase, please be sure to specify at least the `initialize` phase since Sonar properties are loaded from the sonar-project.properties file.
+---
 
-```
-./mvnw initialize sonar:sonar
-```
+## Déploiement avec Docker
 
-For more information, refer to the [Code quality page][].
+```bash
+# Construire l'image Docker de l'application
+npm run java:docker
 
-## Using Docker to simplify development (optional)
-
-You can use Docker to improve your JHipster development experience. A number of docker-compose configuration are available in the [src/main/docker](src/main/docker) folder to launch required third party services.
-
-For example, to start a postgresql database in a docker container, run:
-
-```
-docker-compose -f src/main/docker/postgresql.yml up -d
-```
-
-To stop it and remove the container, run:
-
-```
-docker-compose -f src/main/docker/postgresql.yml down
-```
-
-You can also fully dockerize your application and all the services that it depends on.
-To achieve this, first build a docker image of your app by running:
-
-```
-./mvnw -Pprod verify jib:dockerBuild
-```
-
-Then run:
-
-```
+# Lancer l'application avec PostgreSQL
 docker-compose -f src/main/docker/app.yml up -d
 ```
 
-For more information refer to [Using Docker and Docker-Compose][], this page also contains information on the docker-compose sub-generator (`jhipster docker-compose`), which is able to generate docker configurations for one or several JHipster applications.
+Build de production sans Docker :
 
-## Continuous Integration (optional)
+```bash
+./mvnw -Pprod clean verify
+java -jar target/*.jar
+```
 
-To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`), this will let you generate configuration files for a number of Continuous Integration systems. Consult the [Setting up Continuous Integration][] page for more information.
+Monitoring (Prometheus + Grafana) :
 
-[jhipster homepage and latest documentation]: https://www.jhipster.tech
-[jhipster 7.8.1 archive]: https://www.jhipster.tech
-[using jhipster in development]: https://www.jhipster.tech/development/
-[using docker and docker-compose]: https://www.jhipster.tech/docker-compose
-[using jhipster in production]: https://www.jhipster.tech/production/
-[running tests page]: https://www.jhipster.tech/running-tests/
-[code quality page]: https://www.jhipster.tech/code-quality/
-[setting up continuous integration]: https://www.jhipster.tech/setting-up-ci/
-[node.js]: https://nodejs.org/
-[npm]: https://www.npmjs.com/
-[webpack]: https://webpack.github.io/
-[browsersync]: https://www.browsersync.io/
-[jest]: https://facebook.github.io/jest/
-[cypress]: https://www.cypress.io/
-[leaflet]: https://leafletjs.com/
-[definitelytyped]: https://definitelytyped.org/
-[angular cli]: https://cli.angular.io/
+```bash
+docker-compose -f src/main/docker/monitoring.yml up -d
+```
+
+---
+
+## Structure du projet
+
+```
+opbank8/
+├── opbank.jh                     # Modèle JDL (entités et relations)
+├── pom.xml                       # Build Maven
+├── package.json                  # Dépendances frontend
+├── src/
+│   ├── main/
+│   │   ├── java/com/iga/opbank/
+│   │   │   ├── domain/           # Entités JPA
+│   │   │   ├── repository/       # Repositories Spring Data
+│   │   │   ├── service/          # Interfaces, implémentations, DTO, mappers
+│   │   │   ├── security/         # JWT et sécurité
+│   │   │   └── web/rest/         # Contrôleurs REST
+│   │   ├── resources/
+│   │   │   ├── config/           # Configuration Spring et Liquibase
+│   │   │   └── i18n/             # Messages traduits
+│   │   ├── webapp/app/
+│   │   │   ├── entities/         # Modules Angular par entité
+│   │   │   │   ├── compte/current-compte/
+│   │   │   │   ├── operation/history/
+│   │   │   │   ├── virement/effectuer-virement/
+│   │   │   │   └── recharge/effectuer-recharge/
+│   │   │   ├── home/  login/  admin/  account/
+│   │   │   └── shared/  core/  layouts/
+│   │   └── docker/               # Fichiers Docker Compose
+│   └── test/                     # Tests Java, Jest et Cypress
+└── .jhipster/                    # Configuration des entités JHipster
+```
+
+---
+
+## Auteure
+
+**Fatima Ezzahra Mifrah**
+Étudiante en génie logiciel — Java, Spring Boot, Angular & React, QA Automation & DevSecOps
+Casablanca, Maroc
+
+- GitHub : [@fz-mifrah](https://github.com/fz-mifrah)
+- Email : mifrah.fz1@gmail.com
